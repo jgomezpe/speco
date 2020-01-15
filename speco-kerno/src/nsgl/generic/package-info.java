@@ -1,4 +1,6 @@
 /**
+ * <p>Comparison of objects.</p>
+ *
  * <p>Copyright: Copyright (c) 2019</p>
  *
  * <h3>License</h3>
@@ -36,29 +38,4 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package nsgl.generic.hashmap;
-
-import nsgl.generic.compare.Comparator;
-
-/**
- * <p>Title: HashMapComparator</p>
- *
- * <p>Description: Compares two Hashmaps to determine if they are equal or not</p>
- *
- */
-public class HashMapComparator<K,V> implements Comparator<HashMap<K,V>>{
-	protected Comparator<V> compare;
-	public HashMapComparator(Comparator<V> compare) { this.compare = compare; }
-	
-	@Override
-	public boolean eq(HashMap<K,V> one, HashMap<K,V> two) {
-		if( one==two ) return true;
-		if(one.size() != two.size()) return false;
-		for( K k:one.keys()){
-			V v1 = one.get(k);
-			V v2 = two.get(k);
-			if( !compare.eq(v1, v2) ) return false;  
-		}
-		return true;
-	}
-}
+package nsgl.generic;

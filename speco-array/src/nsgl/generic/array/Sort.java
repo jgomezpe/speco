@@ -1,6 +1,6 @@
 package nsgl.generic.array;
 
-import nsgl.generic.order.Order;
+import nsgl.generic.Order;
 
 /**
  * <p>Abstract Sorting algorithm for Arrays of objects</p>

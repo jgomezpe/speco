@@ -1,7 +1,5 @@
 package nsgl.integer;
 
-import nsgl.integer.random.UniformInt;
-
 /**
  * <p>Set of constants and methods operating on the primitive <i>int</i> data type,
  * for example, for accessing the bit representation of an int </p>
@@ -227,7 +225,7 @@ public class Int {
     }
     
     public static int[] random( int n, int max ){
-    	UniformInt g = new UniformInt(max);
+    	UniformGenerator g = new UniformGenerator(max);
     	return g.generate(n);
     }  
     

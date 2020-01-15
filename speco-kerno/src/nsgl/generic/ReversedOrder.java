@@ -1,6 +1,4 @@
 /**
- * <p>Ordering of objects.</p>
- *
  * <p>Copyright: Copyright (c) 2019</p>
  *
  * <h3>License</h3>
@@ -38,4 +36,32 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package nsgl.generic.order;
+package nsgl.generic;
+
+/**
+ * <p>Title: ReversedOrder</p>
+ *
+ * <p>Description: Reverses an order</p>
+ *
+ */
+public class ReversedOrder<T> implements Order<T>{
+    /**
+     * Order to be reversed
+     */
+    protected Order<T> original_order = null;
+
+    /**
+     * Creates a reversed order for the given order
+     * @param _original_order Order to be reversed
+     */
+    public ReversedOrder(Order<T> _original_order){ original_order = _original_order; }
+
+    /**
+     * Determines if object one is less than (in the reversed order) object two
+     * @param one The first object to compare
+     * @param two The second object to compare
+     * @return (one &lt; two) i.e. two &lt; one in the original_order
+     */
+    @Override
+    public int compare(T one, T two){ return original_order.compare(two, one); }    
+}

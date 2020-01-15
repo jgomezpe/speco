@@ -38,7 +38,7 @@
  */
 package nsgl.pair;
 
-import nsgl.generic.order.Order;
+import nsgl.generic.Order;
 
 /**
  * <p>Title: KeyOrder</p>

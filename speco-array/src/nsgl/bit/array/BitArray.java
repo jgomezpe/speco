@@ -1,9 +1,9 @@
 package nsgl.bit.array;
 import java.util.Iterator;
 
-import nsgl.bit.random.RandBit;
+import nsgl.bit.Random;
 import nsgl.integer.Int;
-import nsgl.integer.random.UniformInt;
+import nsgl.integer.UniformGenerator;
 import nsgl.random.raw.RawGenerator;
 
 /**
@@ -69,8 +69,8 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
 	 */
 	public BitArray(int n, RawGenerator rand) {
 		this(n);
-		UniformInt g = new UniformInt(Int.HIGHEST_BIT >>> 1, rand);
-		RandBit rg = new RandBit(rand);
+		UniformGenerator g = new UniformGenerator(Int.HIGHEST_BIT >>> 1, rand);
+		Random rg = new Random(rand);
 		g.generate( data, 0, n );
 		for (int i = 0; i<n; i++) if(rg.next()) data[i] = -data[i]; 
 	}

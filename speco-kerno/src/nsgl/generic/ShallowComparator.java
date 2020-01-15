@@ -36,31 +36,15 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package nsgl.generic.array;
-
-import nsgl.generic.compare.Comparator;
+package nsgl.generic;
 
 /**
- * <p>Title: ArrayComparator</p>
+ * <p>Title: ShallowComparator</p>
  *
- * <p>Description: Compares two arrays to determine if they are equal or not</p>
+ * <p>Description: Compares two objects to determine if they are the same (nor just equal) or not</p>
  *
  */
-public class ArrayComparator<T> implements Comparator<Array<T>>{
-	protected Comparator<T> compare;
-	public ArrayComparator(Comparator<T> compare) { this.compare = compare; }
-
-	public boolean eq(Array<T> one, Array<T> two, int start, int end){
-		if( one == two ) return true;
-		boolean flag = true;
-		for( int i=start; i<end && flag; i++) flag = compare.eq(one.get(i), two.get(i));
-		return flag;
-	}
-	
+public class ShallowComparator implements Comparator<Object>{
 	@Override
-	public boolean eq(Array<T> one, Array<T> two) {
-		if( one==two ) return true;
-		if( one.size() != two.size() ) return false;
-		return eq( one, two, 0, one.size());
-	}
+	public boolean eq(Object one, Object two) { return one==two; }
 }

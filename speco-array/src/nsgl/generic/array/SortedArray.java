@@ -1,6 +1,6 @@
 package nsgl.generic.array;
 
-import nsgl.generic.order.Order;
+import nsgl.generic.Order;
 
 /**
  * <p>Title: SortedVector</p>

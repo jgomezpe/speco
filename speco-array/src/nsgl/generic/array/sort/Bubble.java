@@ -1,7 +1,7 @@
 package nsgl.generic.array.sort;
 
 import nsgl.generic.array.Sort;
-import nsgl.generic.order.Order;
+import nsgl.generic.Order;
 
 /**
  * <p>BubbleSort algorithm</p>
