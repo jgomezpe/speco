@@ -1,6 +1,6 @@
 package nsgl.integer;
 
-public interface Order extends nsgl.generic.Order<Integer> {
+public interface Order extends nsgl.generic.Order {
     /**
      * Determines if the first Double is less than (in some order) the second Double (one<two)
      * @param one First Double
@@ -15,5 +15,5 @@ public interface Order extends nsgl.generic.Order<Integer> {
      * @param two Second Integer
      * @return (one<two)
      */
-    default int compare(Integer one, Integer two){ return compare((int)one, (int)two); }
+    default int compare(Object one, Object two){ return compare((int)one, (int)two); }
 }

@@ -44,7 +44,7 @@ package nsgl.generic;
  * <p>Description: An order for objects</p>
  *
  */
-public interface Order<T> extends Comparator<T>{
+public interface Order extends Comparator{
     /**
      * Determines if one elements is less, equal or greater than other.
      * @param one First object to be compared
@@ -52,7 +52,7 @@ public interface Order<T> extends Comparator<T>{
      * @return A value less than 0 indicates that one is less than two, a value equal to 0 indicates
      * that one is equal to two and a value greater than 0 indicates that one is greater than two
      */
-    int compare(T one, T two);    
+    int compare(Object one, Object two);    
     
 	/**
      * Determines if the object one is equal to the object two
@@ -60,5 +60,5 @@ public interface Order<T> extends Comparator<T>{
      * @param two The second object to compare
      * @return (one==two)
      */
-    default boolean eq(T one, T two){ return compare(one,two)==0; }    
+    default boolean eq(Object one, Object two){ return compare(one,two)==0; }    
 }

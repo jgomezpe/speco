@@ -44,12 +44,12 @@ package nsgl.generic;
  * <p>Description: Compares two objects to determine if they are equal or not</p>
  *
  */
-public interface Comparator<T>{
+public interface Comparator{
 	/**
      * Determines if the object one is equal to the object two
      * @param one The first object to compare
      * @param two The second object to compare
      * @return (one==two)
      */
-    public boolean eq(T one, T two);    
+    public boolean eq(Object one, Object two);    
 }

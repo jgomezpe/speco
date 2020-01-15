@@ -46,10 +46,13 @@ import nsgl.generic.Order;
  * <p>Description: An order for Pair objects that considers the key ('a': the first element in the pair) as sorting element</p>
  *
  */
-public class PairAOrder<A,B>  implements Order<Pair<A,B>>{
-	protected Order<A> order;
+public class PairAOrder<A,B>  implements Order{
+	protected Order order;
 	
-	public PairAOrder( Order<A> keys_order ){ this.order = keys_order; }
+	public PairAOrder( Order keys_order ){ this.order = keys_order; }
 	
 	public int compare(Pair<A,B> x, Pair<A,B> y){ return order.compare(x.a(), y.a()); }
+
+	@SuppressWarnings("unchecked")
+	public int compare(Object x, Object y){ return compare((Pair<A,B>)x, (Pair<A,B>)y); }	
 }

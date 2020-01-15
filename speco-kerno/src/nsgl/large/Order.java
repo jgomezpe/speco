@@ -1,6 +1,6 @@
 package nsgl.large;
 
-public interface Order extends nsgl.generic.Order<Long> {
+public interface Order extends nsgl.generic.Order {
     /**
      * Determines if the first Double is less than (in some order) the second Double (one<two)
      * @param one First Double
