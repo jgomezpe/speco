@@ -17,21 +17,21 @@ import nsgl.generic.Order;
 public class SortedArray<T> extends DynArray<T>{
 	
     protected SortedSearch<T> search;
-    protected Order<T> order;
+    protected Order order;
     
-    public SortedArray( T[] buffer, int n, Order<T> order ){
+    public SortedArray( T[] buffer, int n, Order order ){
         super( buffer, n );
         this.order = order;
         search = new SortedSearch<T>(buffer, order);
     }
 
-    public SortedArray( T[] buffer, Order<T> order ){
+    public SortedArray( T[] buffer, Order order ){
         super( buffer );
         this.order = order;
         search = new SortedSearch<T>(buffer, order);
     }
 
-    public SortedArray( Order<T> order ) {
+    public SortedArray( Order order ) {
         super();
         this.order = order;
         search = null;

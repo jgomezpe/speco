@@ -11,21 +11,21 @@ import nsgl.generic.Order;
  * @version 1.0
  */
 public class SortedSearch<T> {
-	protected Order<T> order;
+	protected Order order;
 	protected T[] sorted;
 	
     /**
      * Creates a search operation for the given sorted array
      * @param sorted Array of elements (should be sorted)
      */
-	public SortedSearch(Array<T> sorted, Order<T> order){ this( sorted.buffer, order ); }
+	public SortedSearch(Array<T> sorted, Order order){ this( sorted.buffer, order ); }
 	
     /**
      * Creates a search operation for the given sorted array
      * @param sorted Array of elements (should be sorted)
-     * @param order Order<T> used for locating the object
+     * @param order Order used for locating the object
      */
-	public SortedSearch(T[] sorted, Order<T> order){
+	public SortedSearch(T[] sorted, Order order){
 		this.order = order;
 		this.sorted = sorted;
 	}

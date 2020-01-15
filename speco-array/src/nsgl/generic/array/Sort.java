@@ -14,7 +14,7 @@ public abstract class Sort<T>{
     /**
      * Order used for sorting the objects
      */
-    protected Order<T> order = null;
+    protected Order order = null;
 
     /**
      * start Initial position in the array to be sorted
@@ -30,7 +30,7 @@ public abstract class Sort<T>{
      * Crates a sorting algorithm with the given order
      * @param order Order used for sorting the objects
      */
-    public Sort(Order<T> order) { this.order = order; }
+    public Sort(Order order) { this.order = order; }
 
     /**
      * Crates a sorting algorithm with the given order
@@ -38,7 +38,7 @@ public abstract class Sort<T>{
      * @param start Initial position in the array to be sorted
      * @param end Final position in the array to be sorted
      */
-    public Sort(Order<T> order, int start, int end){ 
+    public Sort(Order order, int start, int end){ 
     	this(order); 
     	this.start = start;
     	this.end = end;
@@ -61,7 +61,7 @@ public abstract class Sort<T>{
      * @param end Final position in the array to be sorted
      * @param order Order used for sorting the objects
      */
-    protected abstract void apply(T[] a, int start, int end, Order<T> order);
+    protected abstract void apply(T[] a, int start, int end, Order order);
 
     /**
      * Runs the sorting algorithm on the given array and the established order

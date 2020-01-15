@@ -22,7 +22,7 @@ public class Merge<T> extends Sort<T> {
      * Crates a sorting algorithm with the given order
      * @param order Order used for sorting the objects
      */
-    public Merge(Order<T> order) { super(order); }
+    public Merge(Order order) { super(order); }
 
     /**
      * Crates a sorting algorithm with the given order
@@ -30,7 +30,7 @@ public class Merge<T> extends Sort<T> {
      * @param start Initial position in the array to be sorted
      * @param end Final position in the array to be sorted
      */
-    public Merge(Order<T> order, int start, int end){ super(order, start, end ); }
+    public Merge(Order order, int start, int end){ super(order, start, end ); }
 
     /**
      * Sorts a portion of the array of objects according to the given order (it does not creates a new array)
@@ -39,7 +39,7 @@ public class Merge<T> extends Sort<T> {
      * @param end Final position in the array to be sorte
      * @return <i>true</i> If the sorting process was done without fails, <i>false</i> otherwise
      */
-	protected void apply(T[] a, int start, int end, Order<T> order) {
+	protected void apply(T[] a, int start, int end, Order order) {
 		insertion = new Insertion<T>(order);
 		int i=start;
 		while( i<end-1 && order.compare(a[i], a[i+1]) <= 0 ){ i++; }

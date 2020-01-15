@@ -48,19 +48,19 @@ import nsgl.generic.hashmap.HashMap;
  *
  */
 public class Map<T> extends HashMap<Integer,T>{
-	protected Comparator<T> c=null;
+	protected Comparator c=null;
 	protected Hashing<T> h=null;
 	
 	public Map(){ this( new ShallowHashing<T>() ); }
 	
 	public Map( Hashing<T> h ){ this.h = h; }
 	
-	public Map( Comparator<T> c ){
+	public Map( Comparator c ){
 		this();
 		this.c=c; 
 	}
 
-	public Map( Hashing<T> h, Comparator<T> c ){
+	public Map( Hashing<T> h, Comparator c ){
 		this(h);
 		this.c=c; 
 	}
