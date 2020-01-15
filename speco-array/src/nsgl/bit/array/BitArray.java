@@ -69,8 +69,12 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
 	 */
 	public BitArray(int n, RawGenerator rand) {
 		this(n);
-		UniformGenerator g = new UniformGenerator(Int.HIGHEST_BIT >>> 1, rand);
-		Random rg = new Random(rand);
+		UniformGenerator g = new UniformGenerator(Int.HIGHEST_BIT >>> 1);
+		Random rg = new Random();
+		if(rand!=null) {
+			g.setRaw(rand);
+			rg.setRaw(rand);
+		}
 		g.generate( data, 0, n );
 		for (int i = 0; i<n; i++) if(rg.next()) data[i] = -data[i]; 
 	}
