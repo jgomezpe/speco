@@ -37,6 +37,10 @@
  * @version 1.0
  */
 package nsgl.generic.list;
+import nsgl.generic.Sized;
+import nsgl.generic.collection.Growable;
+import nsgl.generic.collection.Shrinkable;
+
 import java.util.Iterator;
 
 /**
@@ -45,7 +49,7 @@ import java.util.Iterator;
  * <p>Description: A list of objects</p>
  *
  */
-public class List<T> implements Iterable<T> {
+public class List<T> implements Growable<T>, Shrinkable<T>, Sized {
     protected int size = 0;
     protected Node<T> head = null;
     protected Node<T> last = null;
@@ -142,4 +146,7 @@ public class List<T> implements Iterable<T> {
 	}
 
 	public T get(){ return head.data; }
+
+	@Override
+	public boolean isEmpty() { return size()==0; }
 }

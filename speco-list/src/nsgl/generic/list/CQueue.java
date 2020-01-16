@@ -2,6 +2,8 @@ package nsgl.generic.list;
 
 import java.util.Iterator;
 
+import nsgl.generic.collection.Growable;
+
 /**
  * <p>Title: CQueue</p>
  * <p>Description: A circular queue.</p>
@@ -10,7 +12,7 @@ import java.util.Iterator;
  * @author Jonatan Gomez
  * @version 1.0
  */
-public class CQueue<T> implements Iterable<T>{
+public class CQueue<T> implements Growable<T>{
 	/**
 	 * The cursor of the circular queue (current position)
 	 */
@@ -25,7 +27,7 @@ public class CQueue<T> implements Iterable<T>{
 	 * Determines if the circular queue is empty or not.
 	 * @return True if the queue is empty, false in other case
 	 */
-	public boolean empty() { return (start == null); }
+	public boolean isEmpty() { return (start == null); }
 
 	/**
 	 * Advances in the circular one position.
@@ -67,8 +69,8 @@ public class CQueue<T> implements Iterable<T>{
 	 * <p>C.add( x ) =>  C = a -> x -> b -> c -> d --> a</p>
 	 * @param data The object to be added
 	 */
-	public void add(T data) {
-		if (empty()) {
+	public boolean add(T data) {
+		if (isEmpty()) {
 			start = new Node<T>(data);
 			start.prev = start;
 			start.next = start;
@@ -79,6 +81,7 @@ public class CQueue<T> implements Iterable<T>{
 			start.next = aux;
 			aux.prev = start;
 		}
+		return true;
 	}
 
 	/**
@@ -88,7 +91,7 @@ public class CQueue<T> implements Iterable<T>{
 	 * <p>C.del() =>  C = b -> c -> d --> b</p>
 	 */
 	public boolean del() {
-		if (!empty()) {
+		if (!isEmpty()) {
 			if (start.next == start) {
 				start = null;
 			} else {

@@ -38,6 +38,8 @@
  */
 package nsgl.integer.array;
 
+import nsgl.generic.Cleanable;
+import nsgl.generic.collection.Growable;
 import nsgl.util.Fibonacci;
 
 /**
@@ -46,7 +48,7 @@ import nsgl.util.Fibonacci;
  * <p>Description: A dynamic array of objects (parameterized).</p>
  *
  */
-public class DynArray extends Array{
+public class DynArray extends Array implements Growable<Integer>, Cleanable{
 	/**
 	 * Current size of the array
 	 */
@@ -219,4 +221,7 @@ public class DynArray extends Array{
 		System.arraycopy(buffer, 0, nbuffer, 0, size);
 		buffer = nbuffer;
 	}	
+	
+	@Override
+	public boolean add(Integer data){ return add((Integer)data); }	
 }

@@ -40,6 +40,8 @@ package nsgl.generic.array;
 
 import java.util.Iterator;
 
+import nsgl.generic.Cleanable;
+import nsgl.generic.collection.Growable;
 import nsgl.util.Fibonacci;
 
 /**
@@ -48,7 +50,7 @@ import nsgl.util.Fibonacci;
  * <p>Description: A dynamic array of objects (parameterized).</p>
  *
  */
-public class DynArray<T> extends Array<T>{
+public class DynArray<T> extends Array<T> implements Growable<T>, Cleanable{
 	protected Fibonacci sizeManager;
 
 	protected static final int DEFAULT_BUFFER_SIZE = 89;
@@ -254,5 +256,5 @@ public class DynArray<T> extends Array<T>{
 		T[] nbuffer = (T[])java.lang.reflect.Array.newInstance(buffer.getClass().getComponentType(),n);
 		System.arraycopy(buffer, 0, nbuffer, 0, size);
 		buffer = nbuffer;
-	}	
+	}
 }

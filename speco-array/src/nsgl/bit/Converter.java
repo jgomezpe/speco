@@ -1,6 +1,6 @@
 package nsgl.bit;
 
-import nsgl.bit.array.BitArray;
+import nsgl.bit.array.Array;
 import nsgl.integer.Int;
 
 /**
@@ -22,7 +22,7 @@ public class Converter {
     * @param useGray treatment type to use
     * @return array of int values
     */
-   public static int[] getIntArray(BitArray a, int intSize, boolean useGray) {
+   public static int[] getIntArray(Array a, int intSize, boolean useGray) {
     int n = a.size() / intSize;
     int[] intVal = new int[n];
     if (intSize == Int.INTEGER_SIZE) {
@@ -45,7 +45,7 @@ public class Converter {
    * @param a Original set of bits
    * @return array of Bit
    */
-  public static byte[] getByteArray(BitArray a) {
+  public static byte[] getByteArray(Array a) {
     int byteSize = 8;
     int maxByte = 255;
     int pack = Int.INTEGER_SIZE / byteSize;
@@ -69,7 +69,7 @@ public class Converter {
    * @param a Original set of bits
    * @return array of int values
    */
-  public static int[] getIntArray(BitArray a) {
+  public static int[] getIntArray(Array a) {
     return getIntArray(a, Int.INTEGER_SIZE, useGrayCode);
   }
 
@@ -80,7 +80,7 @@ public class Converter {
    * @param intSize size of the array
    * @param useGray treatment type to use
    */
-  public static void setIntArray(BitArray a, int[] intVal, int intSize, boolean useGray) {
+  public static void setIntArray(Array a, int[] intVal, int intSize, boolean useGray) {
     int n = intVal.length;
     if (intSize == Int.INTEGER_SIZE) {
       if (a.getData().length < n) {
@@ -112,8 +112,8 @@ public class Converter {
      * @param length Number of bits to be extracted
      * @return Integer encoded by the "length" bits starting at the position start
      */
-  public static int getNumber(BitArray a, int start, int length) {
-    BitArray b = a.subBitArray(start, start + length);
+  public static int getNumber(Array a, int start, int length) {
+    Array b = a.subBitArray(start, start + length);
     return (b.getInt(0) >>> (Int.INTEGER_SIZE - length));
   }
 
@@ -124,7 +124,7 @@ public class Converter {
    * @param length Final range
    * @param number Value to replace
    */
-  public static void setNumber(BitArray a, int start, int length, int number) {
+  public static void setNumber(Array a, int start, int length, int number) {
     int n = start + length - 1;
     for (int i = 0; i < length; i++) {
       a.set(n, ((number & 1) == 1));

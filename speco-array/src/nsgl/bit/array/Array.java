@@ -2,7 +2,10 @@ package nsgl.bit.array;
 import java.util.Iterator;
 
 import nsgl.bit.Random;
+import nsgl.generic.Sized;
+import nsgl.generic.collection.Indexed;
 import nsgl.integer.Int;
+import nsgl.integer.IntInterval;
 import nsgl.integer.UniformGenerator;
 import nsgl.random.raw.RawGenerator;
 
@@ -17,7 +20,7 @@ import nsgl.random.raw.RawGenerator;
  *
  */
 
-public class BitArray implements Iterable<Boolean>, Cloneable{
+public class Array implements Indexed<Integer, Boolean>, Sized, Cloneable{
 	/**
 	 * Integer array used to store the bits
 	 */
@@ -33,12 +36,12 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
 	 * @param data The bits that will conform the bit array
 	 * @param n The size of the bit array
 	 */
-	protected BitArray(int[] data, int n){
+	protected Array(int[] data, int n){
 		this.data = data;
 		this.n = n;
 	}
 	
-	public BitArray( int n ) {
+	public Array( int n ) {
 		this.n = n;
 		int m = getIndex(n) + 1;
 	    data = new int[m];
@@ -48,7 +51,7 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
 	 * Constructor: Creates a bit array using the boolean values given in the array
 	 * @param source The bits that will conform the bit array
 	 */
-	public BitArray(boolean[] source){
+	public Array(boolean[] source){
 		this(source.length);
 	    for (int i = 0; i < n; i++) set(i, source[i]);
 	}
@@ -57,7 +60,7 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
 	 * Constructor: Creates a bit array using the boolean values given in the string
 	 * @param source The String with the bits that will conform the bit array
 	 */
-	public BitArray(String source) {
+	public Array(String source) {
 		this( source.length() );
 		for (int i = 0; i < n; i++) set(i, (source.charAt(i) == '1'));
 	}
@@ -67,7 +70,7 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
 	 * @param n The size of the bit array
 	 * @param rand Raw generator for initializing the bit array
 	 */
-	public BitArray(int n, RawGenerator rand) {
+	public Array(int n, RawGenerator rand) {
 		this(n);
 		UniformGenerator g = new UniformGenerator(Int.HIGHEST_BIT >>> 1);
 		Random rg = new Random();
@@ -79,7 +82,7 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
 		for (int i = 0; i<n; i++) if(rg.next()) data[i] = -data[i]; 
 	}
 
-	public Object clone(){ return new BitArray((int[])data.clone(), n); }
+	public Object clone(){ return new Array((int[])data.clone(), n); }
 
 	/**
 	 * Returns the buffer position (the integer that contains the bit) of an specific bit
@@ -102,13 +105,14 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
 	 * @param i The bit index
 	 * @param v The new value for the bit
 	 */
-	public void set(int i, boolean v) {
+	public boolean set(int i, boolean v) {
 		int m = getIndex(i);
 		int p = getBit(i);
 		int vmask = (Int.HIGHEST_BIT >>> p);
 		int dmask = vmask & data[m];
 		if(v){ if (dmask == 0){ data[m] |= vmask; };
 		}else { if (dmask != 0) { data[m] ^= vmask; }  }
+		return true;
   }
 
   /**
@@ -116,7 +120,7 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
    * @param i The bit index
    * @return The boolean value of a specific position
    */
-  public Boolean get(int i){
+  public boolean get(int i){
     int m = getIndex(i);
     int p = getBit(i);
     return (((Int.HIGHEST_BIT >>> p) & data[m]) != 0);
@@ -131,8 +135,8 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
    * @param start The start position
    * @return A sub bit array of the bit array starting from the position start until the end of the bit array.
    */
-  public BitArray subBitArray(int start) {
-    BitArray subArray = (BitArray)clone();
+  public Array subBitArray(int start) {
+    Array subArray = (Array)clone();
     subArray.leftShift(start);
     subArray.n -= start;
     if (subArray.n < 0) { subArray.n = 0; }
@@ -150,9 +154,9 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
    * @param end The end position + 1 of the subarray
    * @return The sub bit array of the bit array starting at the position start and the previous to the position end-1.
    */
-  public BitArray subBitArray(int start, int end) {
+  public Array subBitArray(int start, int end) {
     int length = end - start;
-    BitArray subArray = subBitArray(start);
+    Array subArray = subBitArray(start);
     if (subArray.n > length) { subArray.n = length; };
     subArray.rightSetToZero(subArray.n);
     return subArray;
@@ -229,8 +233,8 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
    * <p>  A.add( B ) = 100111001</p>
    * @param source The bit array to be added to the end
    */
-  public void add(BitArray source) {
-    BitArray newBitArray = new BitArray (n + source.n);
+  public void add(Array source) {
+    Array newBitArray = new Array (n + source.n);
     newBitArray.or(source);
     newBitArray.rightShift(n);
     newBitArray.or(this);
@@ -383,7 +387,7 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
    * <p>  B.and( A ) = 0001000101</p>
    * @param arg2 The array used to perform the and operator
    */
-  public void and(BitArray arg2) {
+  public void and(Array arg2) {
     arg2.rightSetToOne(arg2.n);
     int m = arg2.data.length;
     if (data.length < m) { m = data.length; }
@@ -400,7 +404,7 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
    * <p>  B.or( A ) = 1101110101</p>
    * @param arg2 The array used to perform the or operator
    */
-  public void or(BitArray arg2) {
+  public void or(Array arg2) {
     arg2.rightSetToZero(arg2.n);
     int m = arg2.data.length;
     if (data.length < m) { m = data.length; }
@@ -417,7 +421,7 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
    * <p>  B.xor( A ) = 1100110000</p>
    * @param arg2 The array used to perform the xor operator
    */
-  public void xor(BitArray arg2) {
+  public void xor(Array arg2) {
     int m = arg2.data.length;
     if (data.length < m) { m = data.length; }
     for (int i = 0; i < m; i++) {
@@ -468,9 +472,9 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
    * <i>false</i> otherwise
    */
   public boolean equals(Object obj) {
-    boolean flag = (obj instanceof BitArray);
+    boolean flag = (obj instanceof Array);
     if (flag) {
-      BitArray other = (BitArray) obj;
+      Array other = (Array) obj;
       int s = size();
       flag = (other.size() == s);
       if (flag && s > 0) {
@@ -544,4 +548,28 @@ public class BitArray implements Iterable<Boolean>, Cloneable{
 		public Boolean next() { return get(pos++); }
 	};
   }
+  
+	@Override
+	public boolean insert(Integer index, Boolean data) { return false; }
+
+	@Override
+	public boolean remove(Integer index) { return remove((int)index); }
+
+	@Override
+	public boolean set(Integer index, Boolean data){ return set((int)index,(boolean)data); }
+
+	@Override
+	public boolean valid(Integer index) { return 0<=index && index<size(); }
+
+	@Override
+	public Boolean get(Integer index) { return get((int)index); }	
+	
+	/**
+	 * Determines if the collection is empty or not
+	 * @return <i>true</i> if the collection is empty <i>false</i> otherwise
+	 */
+	public boolean isEmpty(){ return size()==0; }	
+
+	@Override
+	public Iterable<Integer> locations() { return new IntInterval(size()); }        
 }

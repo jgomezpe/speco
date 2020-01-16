@@ -39,14 +39,18 @@
 package nsgl.large.list;
 import java.util.Iterator;
 
+import nsgl.generic.Sized;
+import nsgl.generic.collection.Growable;
+import nsgl.generic.collection.Shrinkable;
+
 /**
  * <p>Title: List</p>
  *
  * <p>Description: A list of objects</p>
  *
  */
-public class List implements Iterable<Long> {
-    protected long size = 0;
+public class List  implements Growable<Long>, Shrinkable<Long>, Sized {
+    protected int size = 0;
     protected Node head = null;
     protected Node last = null;
 
@@ -60,12 +64,6 @@ public class List implements Iterable<Long> {
         last = null;
         size = 0;
     }
-
-    /**
-     * Determines the number of objects stored by the data structure
-     * @return Number of objects stored by the data structure
-     */
-    public long size(){ return size; }
 
     /**
      * Obtains an iterator of the objects in the list
@@ -140,4 +138,21 @@ public class List implements Iterable<Long> {
 	}
 
 	public long get(){ return head.data; }
+	
+	@Override
+	public boolean isEmpty() { return size()==0; }
+
+    /**
+     * Determines the number of objects stored by the data structure
+     * @return Number of objects stored by the data structure
+     */
+	@Override
+    public int size(){ return size; }
+
+
+	@Override
+	public boolean del(Long data){ return del( (long)data ); }
+
+	@Override
+	public boolean add(Long data) { return add((long)data); }	
 }

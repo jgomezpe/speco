@@ -39,16 +39,20 @@
 package nsgl.real.list;
 import java.util.Iterator;
 
+import nsgl.generic.Sized;
+import nsgl.generic.collection.Growable;
+import nsgl.generic.collection.Shrinkable;
+
 /**
  * <p>Title: List</p>
  *
  * <p>Description: A list of objects</p>
  *
  */
-public class List implements Iterable<Double> {
-    protected double size = 0;
+public class List implements Growable<Double>, Shrinkable<Double>, Sized {
     protected Node head = null;
     protected Node last = null;
+    protected int size = 0;
 
     public List(){}
 
@@ -60,12 +64,6 @@ public class List implements Iterable<Double> {
         last = null;
         size = 0;
     }
-
-    /**
-     * Determines the number of objects stored by the data structure
-     * @return Number of objects stored by the data structure
-     */
-    public double size(){ return size; }
 
     /**
      * Obtains an iterator of the objects in the list
@@ -140,4 +138,21 @@ public class List implements Iterable<Double> {
 	}
 
 	public double get(){ return head.data; }
+
+	@Override
+	public boolean isEmpty() { return size()==0; }
+
+    /**
+     * Determines the number of objects stored by the data structure
+     * @return Number of objects stored by the data structure
+     */
+	@Override
+    public int size(){ return size; }
+
+
+	@Override
+	public boolean del(Double data){ return del( (double)data ); }
+
+	@Override
+	public boolean add(Double data) { return add((double)data); }
 }

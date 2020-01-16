@@ -40,6 +40,7 @@ package nsgl.generic.keymap;
 
 import java.util.Iterator;
 
+import nsgl.generic.collection.Indexed;
 import nsgl.pair.Pair;
 /**
  * <p>Title: Mutable</p>
@@ -49,7 +50,7 @@ import nsgl.pair.Pair;
  * <p>Copyright: Copyright (c) 2019</p>
  *
  */
-public interface KeyMap<K,V> extends Iterable<V>{
+public interface KeyMap<K,V> extends Indexed<K,V>{
 	
 	// KeyMap own methods
 	Iterable<K> keys();
@@ -73,20 +74,5 @@ public interface KeyMap<K,V> extends Iterable<V>{
 				};
 			}
 		};	
-	}
-	
-	/**
-	 * Obtains the object that has the given key
-	 * @param key Key of the object
-	 * @return Object with the given key 
-	 */
-	V get(K key);
-
-	/**
-	 * Sets an element with the given map into the HashMap
-	 * @param key Key used for setting the object 
-	 * @param value The element to be set
-	 * @return <i>true</i> if the element was set, <i>false</i> otherwise
-	 */
-	boolean set( K key, V value );
+	}	
 }

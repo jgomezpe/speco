@@ -40,6 +40,7 @@ package nsgl.generic.hashmap;
 
 import java.util.Iterator;
 
+import nsgl.generic.Sized;
 import nsgl.generic.keymap.KeyMap;
 
 /**
@@ -48,7 +49,7 @@ import nsgl.generic.keymap.KeyMap;
  * <p>Description: A hashmap collection</p>
  *
  */
-public class HashMap<K,V> implements KeyMap<K,V>{
+public class HashMap<K,V> implements KeyMap<K,V>, Sized{
 	/**
 	 * Inner hashmap
 	 */
@@ -119,4 +120,16 @@ public class HashMap<K,V> implements KeyMap<K,V>{
 	 * @param map MashMap to be merged
 	 */
 	public void merge( HashMap<K, V> map ){ for( K k : map.keys() ) this.set(k, map.get(k)); }
+
+	@Override
+	public boolean insert(K key, V value) { return set(key, value); }
+
+	/**
+	 * Determines if the collection is empty or not
+	 * @return <i>true</i> if the collection is empty <i>false</i> otherwise
+	 */
+	public boolean isEmpty(){ return size()==0; }
+
+	@Override
+	public Iterable<K> locations(){ return keys();	}      
 }

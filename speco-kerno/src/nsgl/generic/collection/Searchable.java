@@ -36,68 +36,27 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package nsgl.generic.hash;
-
-import nsgl.generic.Comparator;
-import nsgl.generic.collection.Growable;
-import nsgl.generic.collection.Shrinkable;
-import nsgl.generic.hashmap.HashMap;
+package nsgl.generic.collection;
 
 /**
- * <p>Title: Map</p>
+ * <p>Title: Searchable</p>
  *
- * <p>Description: A map of objects that use the hash code of the objects as key</p>
+ * <p>Description: A searchable collection</p>
  *
  */
-public class Map<T> extends HashMap<Integer,T> implements Growable<T>, Shrinkable<T>{
-	protected Comparator c=null;
-	protected Hashing<T> h=null;
-	
-	public Map(){ this( new ShallowHashing<T>() ); }
-	
-	public Map( Hashing<T> h ){ this.h = h; }
-	
-	public Map( Comparator c ){
-		this();
-		this.c=c; 
-	}
-
-	public Map( Hashing<T> h, Comparator c ){
-		this(h);
-		this.c=c; 
-	}
-	
+public interface Searchable<L,T> extends Observable<T> {
 	/**
-	 * Inserts a data element in the map
-	 * @param data Data element to be inserted
-	 * @return <i>true</i> if the element could be added, <i>false</i> otherwise
+	 * Obtains the location of the object into the search collection
+	 * @param data Data object to be located
+	 * @return A location (collection dependent) where the object is located, <i>null</i> if the object is not in the search collection
 	 */
-	public boolean add(T data){ return set(h.hashCode(data), data); }
-	
-	/**
-	 * Removes a data element from the structure
-	 * @param data Data element to be removed
-	 * @return <i>true</i> if the element could be removed, <i>false</i> otherwise
-	 */
-	public boolean del(T data){
-		Integer loc = find(data);
-		if( loc != null ) return remove(loc);
-		return false;
-	}
+	L find(T data);
 	
 	/**
 	 * Determines if the given object belongs to the structure
 	 * @param data Data object to be located
 	 * @return <i>true</i>If the object belongs to the structure, <i>false</i> otherwise
 	 */
-	public boolean contains( T data ){
-		Integer k = find(data);
-		return( k!=null );
-	}
-	
-	public Integer find(T data) {
-		if(c!=null) { for(Integer k:keys()) if(c.eq(get(k),data)) return k; }
-		else{ for(Integer k:keys()) if( get(k)==data ) return k; }
-		return null;
-	}
+	@Override
+	default boolean contains( T data ){ return find(data)!=null; }	
 }

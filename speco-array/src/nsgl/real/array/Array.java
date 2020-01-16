@@ -40,13 +40,17 @@ package nsgl.real.array;
 
 import java.util.Iterator;
 
+import nsgl.generic.collection.Indexed;
+import nsgl.integer.IntInterval;
+import nsgl.generic.Sized;
+
 /**
  * <p>Title: Array</p>
  *
  * <p>Description: A dynamic array of objects (parameterized).</p>
  *
  */
-public class Array implements Iterable<Double>, Cloneable{
+public class Array implements Indexed<Integer, Double>, Sized, Cloneable{
 	protected double[] buffer=null;
 
 	/**
@@ -147,5 +151,29 @@ public class Array implements Iterable<Double>, Cloneable{
 			@Override
 			public Double next() { return get(pos++); }
 		};
-	}	
+	}
+	
+	@Override
+	public boolean insert(Integer index, Double data) { return false; }
+
+	@Override
+	public boolean remove(Integer index) { return remove((int)index); }
+
+	@Override
+	public boolean set(Integer index, Double data){ return set((int)index,(double)data); }
+
+	@Override
+	public boolean valid(Integer index) { return 0<=index && index<size(); }
+
+	@Override
+	public Double get(Integer index) { return get((int)index); }	
+	
+	/**
+	 * Determines if the collection is empty or not
+	 * @return <i>true</i> if the collection is empty <i>false</i> otherwise
+	 */
+	public boolean isEmpty(){ return size()==0; }	
+
+	@Override
+	public Iterable<Integer> locations() { return new IntInterval(size()); }      
 }

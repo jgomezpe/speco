@@ -40,13 +40,17 @@ package nsgl.generic.array;
 
 import java.util.Iterator;
 
+import nsgl.generic.collection.Indexed;
+import nsgl.integer.IntInterval;
+import nsgl.generic.Sized;
+
 /**
  * <p>Title: Array</p>
  *
  * <p>Description: A dynamic array of objects (parameterized).</p>
  *
  */
-public class Array<T> implements Iterable<T>{
+public class Array<T> implements Indexed<Integer,T>, Sized{
 	protected T[] buffer;
 	protected int size=0;
 
@@ -158,5 +162,29 @@ public class Array<T> implements Iterable<T>{
 	}	
 
 	@SuppressWarnings("unchecked")
-	protected void init( Class<?> cl ) { buffer = (T[])java.lang.reflect.Array.newInstance(cl, size); }	
+	protected void init( Class<?> cl ) { buffer = (T[])java.lang.reflect.Array.newInstance(cl, size); }
+
+	@Override
+	public boolean insert(Integer index, T data) { return false; }
+
+	@Override
+	public boolean remove(Integer index) { return remove((int)index); }
+
+	@Override
+	public boolean set(Integer index, T data) {	return set((int)index,data); }
+
+	@Override
+	public T get(Integer index) { return get((int)index); }
+
+	@Override
+	public boolean valid(Integer index) { return 0<=index && index<size(); }
+
+	/**
+	 * Determines if the collection is empty or not
+	 * @return <i>true</i> if the collection is empty <i>false</i> otherwise
+	 */
+	public boolean isEmpty(){ return size()==0; }
+
+	@Override
+	public Iterable<Integer> locations() { return new IntInterval(size()); }      
 }
