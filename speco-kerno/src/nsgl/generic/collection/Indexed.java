@@ -91,6 +91,15 @@ public interface Indexed<L,T> extends Collection<T>{
 	 * @return the object that is at the given location or <i>null</i> if there is not object in such location
 	 */
 	T get( L loc );
+
+	/**
+	 * Obtains the object that has the given key
+	 * @param key Key of the object
+	 * @return Object with the given key 
+	 */
+	@SuppressWarnings("unchecked")
+	default T obtain(Object loc){ return get((L)loc); }
+	
 	
 	/**
 	 * Collection of keys

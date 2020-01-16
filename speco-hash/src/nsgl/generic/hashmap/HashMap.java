@@ -94,13 +94,6 @@ public class HashMap<K,V> implements KeyMap<K,V>, Sized{
 	 */
 	public V get(K key){ return map.get(key); }
 	
-	/**
-	 * Obtains the object that has the given key
-	 * @param key Key of the object
-	 * @return Object with the given key 
-	 */
-	public V obtain(Object key){ return map.get(key); }
-	
 	// KeyMap methods
 	/**
 	 * Determines if there is an object in the collection associated to the given key

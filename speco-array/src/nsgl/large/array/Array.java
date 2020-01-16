@@ -38,11 +38,7 @@
  */
 package nsgl.large.array;
 
-import java.util.Iterator;
-
-import nsgl.generic.collection.Indexed;
-import nsgl.integer.IntInterval;
-import nsgl.generic.Sized;
+import nsgl.generic.array.ArrayInterface;
 
 /**
  * <p>Title: Array</p>
@@ -50,7 +46,7 @@ import nsgl.generic.Sized;
  * <p>Description: A dynamic array of objects (parameterized).</p>
  *
  */
-public class Array implements Indexed<Integer, Long>, Sized, Cloneable{
+public class Array implements ArrayInterface<Long>, Cloneable{
 	protected long[] buffer=null;
 
 	/**
@@ -72,21 +68,6 @@ public class Array implements Indexed<Integer, Long>, Sized, Cloneable{
 
 	@Override
 	public Object clone(){ return new Array( buffer.clone() ); }
-	
-	/**
-	 * Creates an iterator for the Array. The Array can be traversed using a for each approach.
-	 * <pre>
-	 *	{@code
-	 * // Suppose that a is an Array<Long> 
-	 * // The next for each loop will print every element in a  
-	 * for( Long k : a )   
-	 *   System.out.print( " " + k);
-	 * }
-	 * </pre>
-	 * @return An iterator for the Array.
-	 */
-	@Override
-	public Iterator<Long> iterator(){ return iterator(0); }
 	
 	/**
 	 * Obtains the size of the array
@@ -137,25 +118,6 @@ public class Array implements Indexed<Integer, Long>, Sized, Cloneable{
 	 */
 	public long get(int index){ return buffer[index]; }
 	
-	/**
-	 * Creates an iterator for the Array, starting at the given index.
-	 * @param start Initial position for the iterator
-	 * @return An iterator for the Array starting at the given position
-	 */
-	public Iterator<Long> iterator( int start ) {
-		return new Iterator<Long>() {
-			protected int pos=start;
-			@Override
-			public boolean hasNext(){ return pos<size(); }
-
-			@Override
-			public Long next() { return get(pos++); }
-		};
-	}
-	
-	@Override
-	public boolean insert(Integer index, Long data) { return false; }
-
 	@Override
 	public boolean remove(Integer index) { return remove((int)index); }
 
@@ -163,17 +125,5 @@ public class Array implements Indexed<Integer, Long>, Sized, Cloneable{
 	public boolean set(Integer index, Long data){ return set((int)index,(long)data); }
 
 	@Override
-	public boolean valid(Integer index) { return 0<=index && index<size(); }
-
-	@Override
-	public Long get(Integer index) { return get((int)index); }
-	
-	/**
-	 * Determines if the collection is empty or not
-	 * @return <i>true</i> if the collection is empty <i>false</i> otherwise
-	 */
-	public boolean isEmpty(){ return size()==0; }	
-
-	@Override
-	public Iterable<Integer> locations() { return new IntInterval(size()); }      
+	public Long get(Integer index) { return get((int)index); }	
 }

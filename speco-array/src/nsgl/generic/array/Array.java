@@ -38,19 +38,13 @@
  */
 package nsgl.generic.array;
 
-import java.util.Iterator;
-
-import nsgl.generic.collection.Indexed;
-import nsgl.integer.IntInterval;
-import nsgl.generic.Sized;
-
 /**
  * <p>Title: Array</p>
  *
  * <p>Description: A dynamic array of objects (parameterized).</p>
  *
  */
-public class Array<T> implements Indexed<Integer,T>, Sized{
+public class Array<T> implements ArrayInterface<T>{
 	protected T[] buffer;
 	protected int size=0;
 
@@ -79,21 +73,6 @@ public class Array<T> implements Indexed<Integer,T>, Sized{
 		this.buffer = buffer;
 		size = buffer.length;
 	}
-	
-	/**
-	 * Creates an iterator for the Array. The Array can be traversed using a for each approach.
-	 * <pre>
-	 *	{@code
-	 * // Suppose that a is an Array<Integer> 
-	 * // The next for each loop will print every element in a  
-	 * for( Integer k : a )   
-	 *   System.out.print( " " + k);
-	 * }
-	 * </pre>
-	 * @return An iterator for the Array.
-	 */
-	@Override
-	public Iterator<T> iterator(){ return iterator(0); }
 	
 	/**
 	 * Obtains the size of the array
@@ -145,27 +124,8 @@ public class Array<T> implements Indexed<Integer,T>, Sized{
 	 */
 	public T get(int index){ if( buffer==null ) return null; else return buffer[index]; }
 	
-	/**
-	 * Creates an iterator for the Array, starting at the given index.
-	 * @param start Initial position for the iterator
-	 * @return An iterator for the Array starting at the given position
-	 */
-	public Iterator<T> iterator( int start ) {
-		return new Iterator<T>() {
-			protected int pos=start;
-			@Override
-			public boolean hasNext(){ return pos<size; }
-
-			@Override
-			public T next() { return get(pos++); }
-		};
-	}	
-
 	@SuppressWarnings("unchecked")
 	protected void init( Class<?> cl ) { buffer = (T[])java.lang.reflect.Array.newInstance(cl, size); }
-
-	@Override
-	public boolean insert(Integer index, T data) { return false; }
 
 	@Override
 	public boolean remove(Integer index) { return remove((int)index); }
@@ -175,16 +135,4 @@ public class Array<T> implements Indexed<Integer,T>, Sized{
 
 	@Override
 	public T get(Integer index) { return get((int)index); }
-
-	@Override
-	public boolean valid(Integer index) { return 0<=index && index<size(); }
-
-	/**
-	 * Determines if the collection is empty or not
-	 * @return <i>true</i> if the collection is empty <i>false</i> otherwise
-	 */
-	public boolean isEmpty(){ return size()==0; }
-
-	@Override
-	public Iterable<Integer> locations() { return new IntInterval(size()); }      
 }
