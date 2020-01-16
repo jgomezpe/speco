@@ -38,6 +38,7 @@
  */
 package nsgl.generic.array;
 
+import nsgl.copy.Copier;
 /**
  * <p>Title: Array</p>
  *
@@ -135,4 +136,20 @@ public class Array<T> implements ArrayInterface<T>{
 
 	@Override
 	public T get(Integer index) { return get((int)index); }
+	
+	public Array<T> instance(int s){ return new Array<T>(s); }
+	
+	public Array<T> instance(){ return instance(0); }
+	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public Object copy() {
+		Array<T> a = instance();
+		a.size = size();
+		if( size()>0 ) {
+			a.init(buffer[0].getClass());
+			for( int i=0; i<a.size; i++ ) a.buffer[i] = (T)Copier.apply(buffer[i]);
+		}
+		return a;
+	}
 }

@@ -2,6 +2,7 @@ package nsgl.bit.array;
 import java.util.Iterator;
 
 import nsgl.bit.Random;
+import nsgl.copy.Copyable;
 import nsgl.generic.Sized;
 import nsgl.generic.collection.Indexed;
 import nsgl.integer.Int;
@@ -20,7 +21,7 @@ import nsgl.random.raw.RawGenerator;
  *
  */
 
-public class Array implements Indexed<Integer, Boolean>, Sized, Cloneable{
+public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
 	/**
 	 * Integer array used to store the bits
 	 */
@@ -82,7 +83,8 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Cloneable{
 		for (int i = 0; i<n; i++) if(rg.next()) data[i] = -data[i]; 
 	}
 
-	public Object clone(){ return new Array((int[])data.clone(), n); }
+	@Override
+	public Object copy(){ return new Array((int[])data.clone(), n); }
 
 	/**
 	 * Returns the buffer position (the integer that contains the bit) of an specific bit
@@ -136,7 +138,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Cloneable{
    * @return A sub bit array of the bit array starting from the position start until the end of the bit array.
    */
   public Array subBitArray(int start) {
-    Array subArray = (Array)clone();
+    Array subArray = (Array)copy();
     subArray.leftShift(start);
     subArray.n -= start;
     if (subArray.n < 0) { subArray.n = 0; }
@@ -264,9 +266,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Cloneable{
   /**
    * Removes the last bit in the bit array
    */
-  public void del() {
-   del(1);
-  }
+  public void del(){ del(1); }
 
   /**
    * Removes the last k bits from the bit array

@@ -124,5 +124,9 @@ public class HashMap<K,V> implements KeyMap<K,V>, Sized{
 	public boolean isEmpty(){ return size()==0; }
 
 	@Override
-	public Iterable<K> locations(){ return keys();	}      
+	public Iterable<K> locations(){ return keys();	}
+	
+	@Override
+	public KeyMap<K,V> instance(){ return new HashMap<K,V>(); }  
+	
 }

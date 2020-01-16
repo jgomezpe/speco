@@ -38,7 +38,7 @@
  */
 package nsgl.generic.hash;
 
-import nsgl.generic.Comparator;
+import nsgl.compare.Comparator;
 import nsgl.generic.collection.Growable;
 import nsgl.generic.collection.Shrinkable;
 import nsgl.generic.hashmap.HashMap;

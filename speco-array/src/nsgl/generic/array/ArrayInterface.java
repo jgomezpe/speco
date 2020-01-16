@@ -2,11 +2,12 @@ package nsgl.generic.array;
 
 import java.util.Iterator;
 
+import nsgl.copy.Copyable;
 import nsgl.generic.Sized;
 import nsgl.generic.collection.Indexed;
 import nsgl.integer.IntInterval;
 
-public interface ArrayInterface<T> extends Indexed<Integer,T>, Sized{
+public interface ArrayInterface<T> extends Indexed<Integer,T>, Sized, Copyable{
 	/**
 	 * Creates an iterator for the Array. The Array can be traversed using a for each approach.
 	 * <pre>

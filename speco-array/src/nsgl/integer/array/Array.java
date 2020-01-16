@@ -46,7 +46,7 @@ import nsgl.generic.array.ArrayInterface;
  * <p>Description: A dynamic array of objects (parameterized).</p>
  *
  */
-public class Array implements ArrayInterface<Integer>, Cloneable{
+public class Array implements ArrayInterface<Integer>{
 	protected int[] buffer=null;
 
 	/**
@@ -67,7 +67,7 @@ public class Array implements ArrayInterface<Integer>, Cloneable{
 	public Array( int s ){ this.buffer = new int[s]; }
 
 	@Override
-	public Object clone(){ return new Array( buffer.clone() ); }
+	public Object copy(){ return new Array( buffer.clone()); }
 	
 	/**
 	 * Obtains the size of the array

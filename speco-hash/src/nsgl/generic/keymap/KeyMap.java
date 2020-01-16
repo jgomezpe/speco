@@ -40,6 +40,8 @@ package nsgl.generic.keymap;
 
 import java.util.Iterator;
 
+import nsgl.copy.Copyable;
+import nsgl.copy.Copier;
 import nsgl.generic.collection.Indexed;
 import nsgl.pair.Pair;
 /**
@@ -50,7 +52,7 @@ import nsgl.pair.Pair;
  * <p>Copyright: Copyright (c) 2019</p>
  *
  */
-public interface KeyMap<K,V> extends Indexed<K,V>{
+public interface KeyMap<K,V> extends Indexed<K,V>, Copyable{
 	
 	// KeyMap own methods
 	Iterable<K> keys();
@@ -74,5 +76,19 @@ public interface KeyMap<K,V> extends Indexed<K,V>{
 				};
 			}
 		};	
-	}	
+	}
+	
+	KeyMap<K,V> instance();
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	default Object copy() {
+		KeyMap<K,V> map = instance();
+		for( K k : keys() ) {
+			V v = get(k);
+			map.set((K)Copier.apply(k), (V)Copier.apply(v));
+		}	
+		return map;
+	}
+	
 }
