@@ -10,7 +10,7 @@ import nsgl.integer.random.Uniform;
 import nsgl.random.raw.RawGenerator;
 
 /**
- * <p>Title: BitArray</p>
+ * <p>Title: Array</p>
  * <p>Description: Stores the positions with a value different of the default value,
  * the values are bits</p>
  * <p>Copyright: Copyright (c) 2006</p>
@@ -130,13 +130,13 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
   /**
    * Returns a sub bit array of the bit array starting from the position start until the end of the bit array.
    * <p>  A = 1000111001</p>
-   * <p>  A.subBitArray( 4 ) = 111001</p>
+   * <p>  A.subArray( 4 ) = 111001</p>
    * <p>  A.subArray( 0 ) = 1000111001</p>
    * <p>  A.subArray( 10 ) = empty bit array</p>
    * @param start The start position
    * @return A sub bit array of the bit array starting from the position start until the end of the bit array.
    */
-  public Array subBitArray(int start) {
+  public Array subArray(int start) {
     Array subArray = (Array)copy();
     subArray.leftShift(start);
     subArray.n -= start;
@@ -148,16 +148,16 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
    * Returns the sub bit array of the bit array starting at the position start and the previous to the position end-1.
    * If the end position is greater than the last position of the array then the function will return only the last bits.
    * <p>  A = 1000111001</p>
-   * <p>  A.subBitArray( 4, 7 ) = 111</p>
+   * <p>  A.subArray( 4, 7 ) = 111</p>
    * <p>  A.subArray( 0, 4 ) = 1000</p>
    * <p>  A.subArray( 7, 11 ) = 001</p>
    * @param start The start position of the substring
    * @param end The end position + 1 of the subarray
    * @return The sub bit array of the bit array starting at the position start and the previous to the position end-1.
    */
-  public Array subBitArray(int start, int end) {
+  public Array subArray(int start, int end) {
     int length = end - start;
-    Array subArray = subBitArray(start);
+    Array subArray = subArray(start);
     if (subArray.n > length) { subArray.n = length; };
     subArray.rightSetToZero(subArray.n);
     return subArray;
@@ -235,12 +235,12 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
    * @param source The bit array to be added to the end
    */
   public void add(Array source) {
-    Array newBitArray = new Array (n + source.n);
-    newBitArray.or(source);
-    newBitArray.rightShift(n);
-    newBitArray.or(this);
-    data = newBitArray.data;
-    n = newBitArray.n;
+    Array newArray = new Array (n + source.n);
+    newArray.or(source);
+    newArray.rightShift(n);
+    newArray.or(this);
+    data = newArray.data;
+    n = newArray.n;
   }
 
   /**
@@ -465,7 +465,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
   }
 
   /**
-   * Compares a BitArray with other Object
+   * Compares a Array with other Object
    * @param obj The bitarray to be compared with this bitarray
    * @return <i>true</i> if the object is a bitarray with the same information than the bit array
    * <i>false</i> otherwise
@@ -490,7 +490,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
 
   // Special methods and attributes
  /**
-   * If the BitArray is using Gray code for representing the integer numbers
+   * If the Array is using Gray code for representing the integer numbers
    */
   public static boolean useGrayCode = false;
 

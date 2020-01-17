@@ -1,8 +1,8 @@
 package nsgl.bit.array;
 
 /**
- * <p>Title: BitArrayConverter</p>
- * <p>Description: Utility class for converting BitArrays to/from IntArrays.</p>
+ * <p>Title: ArrayConverter</p>
+ * <p>Description: Utility class for converting Arrays to/from IntArrays.</p>
  * <p>Copyright: Copyright (c) 2006</p>
  * <p>Company: Kunsamu</p>
  * @author Jonatan Gomez
@@ -38,7 +38,7 @@ public class Util {
   }
 
   /**
-   * Convert an array of BitArray into an byte[]
+   * Convert an array of Array into an byte[]
    * @param a Original set of bits
    * @return array of Bit
    */
@@ -71,7 +71,7 @@ public class Util {
   }
 
   /**
-   * it assigns an array inside an it BitArray
+   * it assigns an array inside an it Array
    * @param a Original set of bits
    * @param intVal array of int
    * @param intSize size of the array
@@ -110,13 +110,13 @@ public class Util {
      * @return Integer encoded by the "length" bits starting at the position start
      */
   public static int getNumber(Array a, int start, int length) {
-    Array b = a.subBitArray(start, start + length);
+    Array b = a.subArray(start, start + length);
     return (b.getInt(0) >>> (nsgl.integer.Util.INTEGER_SIZE - length));
   }
 
   /**
    * Assigns the value number in the defined range
-   * @param a Object BitArray
+   * @param a Object Array
    * @param start Initial range
    * @param length Final range
    * @param number Value to replace
