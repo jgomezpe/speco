@@ -8,6 +8,10 @@ import nsgl.generic.collection.Indexed;
 import nsgl.integer.IntInterval;
 
 public interface ArrayInterface<T> extends Indexed<Integer,T>, Sized, Copyable{
+	ArrayInterface<T> instance(int s);
+	
+	default ArrayInterface<T> instance(){ return instance(0); }
+	
 	/**
 	 * Creates an iterator for the Array. The Array can be traversed using a for each approach.
 	 * <pre>

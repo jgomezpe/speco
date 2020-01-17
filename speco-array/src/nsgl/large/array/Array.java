@@ -67,6 +67,9 @@ public class Array implements ArrayInterface<Long>, Cloneable{
 	public Array( int s ){ this.buffer = new long[s]; }
 
 	@Override
+	public ArrayInterface<Long> instance(int s){ return new Array(s); }
+	
+	@Override
 	public Object copy(){ return new Array( buffer.clone() ); }
 	
 	/**

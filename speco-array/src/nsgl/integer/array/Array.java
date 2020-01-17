@@ -67,6 +67,9 @@ public class Array implements ArrayInterface<Integer>{
 	public Array( int s ){ this.buffer = new int[s]; }
 
 	@Override
+	public ArrayInterface<Integer> instance(int s){ return new Array(s); }
+
+	@Override
 	public Object copy(){ return new Array( buffer.clone()); }
 	
 	/**

@@ -137,14 +137,13 @@ public class Array<T> implements ArrayInterface<T>{
 	@Override
 	public T get(Integer index) { return get((int)index); }
 	
-	public Array<T> instance(int s){ return new Array<T>(s); }
-	
-	public Array<T> instance(){ return instance(0); }
+	@Override
+	public ArrayInterface<T> instance(int s){ return new Array<T>(s); }
 	
 	@SuppressWarnings("unchecked")
 	@Override 
 	public Object copy() {
-		Array<T> a = instance();
+		Array<T> a = (Array<T>)instance();
 		a.size = size();
 		if( size()>0 ) {
 			a.init(buffer[0].getClass());

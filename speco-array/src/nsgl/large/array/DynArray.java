@@ -39,6 +39,7 @@
 package nsgl.large.array;
 
 import nsgl.generic.Cleanable;
+import nsgl.generic.array.ArrayInterface;
 import nsgl.generic.collection.Growable;
 import nsgl.util.Fibonacci;
 
@@ -81,6 +82,9 @@ public class DynArray extends Array implements Growable<Long>, Cleanable{
 		this.size = s;
 	}
 	
+	@Override
+	public ArrayInterface<Long> instance(int s){ return new DynArray( new long[s], s); }
+
 	@Override
 	public Object clone(){ return new DynArray( buffer.clone(), size ); }
 	
