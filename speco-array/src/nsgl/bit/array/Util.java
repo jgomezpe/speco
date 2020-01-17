@@ -1,7 +1,4 @@
-package nsgl.bit;
-
-import nsgl.bit.array.Array;
-import nsgl.integer.Int;
+package nsgl.bit.array;
 
 /**
  * <p>Title: BitArrayConverter</p>
@@ -12,7 +9,7 @@ import nsgl.integer.Int;
  * @version 1.0
  *
  */
-public class Converter {
+public class Util {
   public static boolean useGrayCode = false;
 
    /**
@@ -25,9 +22,9 @@ public class Converter {
    public static int[] getIntArray(Array a, int intSize, boolean useGray) {
     int n = a.size() / intSize;
     int[] intVal = new int[n];
-    if (intSize == Int.INTEGER_SIZE) {
+    if (intSize == nsgl.integer.Util.INTEGER_SIZE) {
       for (int i = 0; i < n; i++) {
-        if (useGray) { intVal[i] = Int.grayToBinary(a.getData()[i]);
+        if (useGray) { intVal[i] = nsgl.integer.Util.grayToBinary(a.getData()[i]);
         } else { intVal[i] = a.getData()[i]; }
       }
     } else {
@@ -48,8 +45,8 @@ public class Converter {
   public static byte[] getByteArray(Array a) {
     int byteSize = 8;
     int maxByte = 255;
-    int pack = Int.INTEGER_SIZE / byteSize;
-    int nInt = (a.size() + Int.INTEGER_SIZE - 1) / Int.INTEGER_SIZE;
+    int pack = nsgl.integer.Util.INTEGER_SIZE / byteSize;
+    int nInt = (a.size() + nsgl.integer.Util.INTEGER_SIZE - 1) / nsgl.integer.Util.INTEGER_SIZE;
     int n = pack * nInt;
     byte[] byteArray = new byte[n];
     int k = 0;
@@ -70,7 +67,7 @@ public class Converter {
    * @return array of int values
    */
   public static int[] getIntArray(Array a) {
-    return getIntArray(a, Int.INTEGER_SIZE, useGrayCode);
+    return getIntArray(a, nsgl.integer.Util.INTEGER_SIZE, useGrayCode);
   }
 
   /**
@@ -82,19 +79,19 @@ public class Converter {
    */
   public static void setIntArray(Array a, int[] intVal, int intSize, boolean useGray) {
     int n = intVal.length;
-    if (intSize == Int.INTEGER_SIZE) {
+    if (intSize == nsgl.integer.Util.INTEGER_SIZE) {
       if (a.getData().length < n) {
         a.setData(new int[n]);
       }
       for (int i = 0; i < n; i++) {
         if (useGray) {
-          a.getData()[i] = Int.binaryToGray(intVal[i]);
+          a.getData()[i] = nsgl.integer.Util.binaryToGray(intVal[i]);
         } else {
           a.getData()[i] = intVal[i];
         }
       }
     } else {
-      n = (n * intSize) / Int.INTEGER_SIZE + 1;
+      n = (n * intSize) / nsgl.integer.Util.INTEGER_SIZE + 1;
       a.setData(new int[n]);
       int start = 0;
       for (int i = 0; i < n; i++) {
@@ -114,7 +111,7 @@ public class Converter {
      */
   public static int getNumber(Array a, int start, int length) {
     Array b = a.subBitArray(start, start + length);
-    return (b.getInt(0) >>> (Int.INTEGER_SIZE - length));
+    return (b.getInt(0) >>> (nsgl.integer.Util.INTEGER_SIZE - length));
   }
 
   /**

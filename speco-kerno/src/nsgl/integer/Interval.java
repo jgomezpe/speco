@@ -6,11 +6,11 @@ import nsgl.generic.Collection;
 import nsgl.generic.Sized;
 import nsgl.iterator.Backable;
 
-public class IntInterval implements Collection<Integer>, Sized{
+public class Interval implements Collection<Integer>, Sized{
 	protected int start = 0;
 	protected int end = 0;
-	public IntInterval( int end ) { this.end = end;	}
-	public IntInterval( int start, int end ) {
+	public Interval( int end ) { this.end = end;	}
+	public Interval( int start, int end ) {
 		this.start = start;
 		this.end = end;	
 	}

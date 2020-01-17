@@ -5,7 +5,7 @@ import java.util.Iterator;
 import nsgl.copy.Copyable;
 import nsgl.generic.Sized;
 import nsgl.generic.collection.Indexed;
-import nsgl.integer.IntInterval;
+import nsgl.integer.Interval;
 
 public interface ArrayInterface<T> extends Indexed<Integer,T>, Sized, Copyable{
 	ArrayInterface<T> instance(int s);
@@ -53,7 +53,7 @@ public interface ArrayInterface<T> extends Indexed<Integer,T>, Sized, Copyable{
 	default boolean valid(Integer index) { return 0<=index && index<size(); }
 	
 	@Override
-	default Iterable<Integer> locations() { return new IntInterval(size()); }
+	default Iterable<Integer> locations() { return new Interval(size()); }
 	
 	@Override
 	default boolean insert(Integer index, T data) { return false; }
