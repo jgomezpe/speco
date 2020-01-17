@@ -1,12 +1,12 @@
 package nsgl.bit.array;
 import java.util.Iterator;
 
-import nsgl.bit.Random;
+import nsgl.bit.random.Random;
 import nsgl.copy.Copyable;
 import nsgl.generic.Sized;
 import nsgl.generic.collection.Indexed;
 import nsgl.integer.Interval;
-import nsgl.integer.UniformGenerator;
+import nsgl.integer.random.Uniform;
 import nsgl.random.raw.RawGenerator;
 
 /**
@@ -72,7 +72,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
 	 */
 	public Array(int n, RawGenerator rand) {
 		this(n);
-		UniformGenerator g = new UniformGenerator(nsgl.integer.Util.HIGHEST_BIT >>> 1);
+		Uniform g = new Uniform(nsgl.integer.Util.HIGHEST_BIT >>> 1);
 		Random rg = new Random();
 		if(rand!=null) {
 			g.setRaw(rand);
