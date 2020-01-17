@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import nsgl.generic.Collection;
 import nsgl.generic.Sized;
+import nsgl.iterator.Backable;
 
 public class IntInterval implements Collection<Integer>, Sized{
 	protected int start = 0;
@@ -20,13 +21,23 @@ public class IntInterval implements Collection<Integer>, Sized{
 
 	@Override
 	public Iterator<Integer> iterator() {
-		return new Iterator<Integer>() {
+		return new Backable<Integer>() {
 			protected int pos = start;
 			@Override
 			public boolean hasNext(){ return pos < end; }
 
 			@Override
 			public Integer next() {	return pos++; }
+
+			@Override
+			public int maxBack() { return pos-start; }
+
+			@Override
+			public boolean back(int k) {
+				if( k > maxBack() ) return false;
+				pos -= k;
+				return true;
+			}
 		};
 	}
 	
