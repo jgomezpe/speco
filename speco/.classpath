@@ -7,8 +7,8 @@
 	<classpathentry kind="src" path="list-src"/>
 	<classpathentry kind="src" path="sort-array-src"/>
 	<classpathentry kind="src" path="json-src"/>
-	<classpathentry kind="lib" path="/home/jgomez/git/hazarda/hazarda-lib/lib/hazarda.jar"/>
-	<classpathentry kind="lib" path="/home/jgomez/git/kitee/kitee-lib/lib/kitee.jar"/>
-	<classpathentry kind="lib" path="/home/jgomez/git/lifya/lifya-lib/lib/lifya.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/hazarda/hazarda-lib/hazarda.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/kitee/kitee-lib/kitee.jar"/>
+	<classpathentry kind="lib" path="/home/jgomez/git/lifya/lifya-lib/lifya.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
