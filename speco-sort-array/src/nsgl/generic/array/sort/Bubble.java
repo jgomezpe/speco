@@ -11,7 +11,7 @@ import nsgl.order.Order;
  * @author Jonatan Gomez Perdomo
  * @version 1.0
  */
-public class Bubble<T> extends Sort<T> {
+public class Bubble extends Sort {
 
     /**
      * Creates a sorting algorithm with the given order
@@ -34,13 +34,17 @@ public class Bubble<T> extends Sort<T> {
      * @param end Final position in the array to be sorted
      */
     @Override
-	protected void apply(T[] a, int start, int end, Order order) {
-		for(int i = start; i < end - 1; i++)
-			for(int j = i + 1; j < end; j++)
-				if(order.compare(a[j], a[i])<0) {
-					T x = a[i];
-					a[i] = a[j];
-					a[j] = x;
+	public void apply(Object a, int start, int end, Order order) {
+		for(int i = start; i < end - 1; i++){
+			Object x = java.lang.reflect.Array.get(a, i);
+			for(int j = i + 1; j < end; j++) {
+				Object y = java.lang.reflect.Array.get(a, j);
+				if(order.compare(y, x)<0) {
+					java.lang.reflect.Array.set(a, i, y);
+					java.lang.reflect.Array.set(a, j, x);
+					x = y;
 				}
+			}	
+		}	
 	}
 }

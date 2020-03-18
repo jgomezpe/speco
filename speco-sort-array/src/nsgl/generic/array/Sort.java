@@ -10,7 +10,7 @@ import nsgl.order.Order;
  * @author Jonatan Gomez Perdomo
  * @version 1.0
  */
-public abstract class Sort<T>{
+public abstract class Sort{
     /**
      * Order used for sorting the objects
      */
@@ -61,15 +61,15 @@ public abstract class Sort<T>{
      * @param end Final position in the array to be sorted
      * @param order Order used for sorting the objects
      */
-    protected abstract void apply(T[] a, int start, int end, Order order);
+    public abstract void apply(Object a, int start, int end, Order order);
 
     /**
      * Runs the sorting algorithm on the given array and the established order
      * @param input Array to be sorted
      * @return Sorted array
      */
-	public T[] apply(T[] input) {
-    	apply(input, start, (end==-1)?input.length:end, order);
+	public Object apply(Object input) {
+    	apply(input, start, (end==-1)?java.lang.reflect.Array.getLength(input):end, order);
     	return input;
     }
 	
@@ -78,7 +78,7 @@ public abstract class Sort<T>{
      * @param input Array to be sorted
      * @return Sorted array
      */
-	public Array<T> apply(Array<T> input){
+	public Array<?> apply(Array<?> input){
 		apply(input.buffer);
 		return input;
 	}

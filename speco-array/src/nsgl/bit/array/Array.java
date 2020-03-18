@@ -549,9 +549,6 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
   }
   
 	@Override
-	public boolean insert(Integer index, Boolean data) { return false; }
-
-	@Override
 	public boolean remove(Integer index) { return remove((int)index); }
 
 	@Override

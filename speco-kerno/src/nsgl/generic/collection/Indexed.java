@@ -38,7 +38,7 @@
  */
 package nsgl.generic.collection;
 
-import nsgl.generic.Collection;
+import nsgl.compare.Comparable;
 import nsgl.pair.Pair;
 
 /**
@@ -47,29 +47,14 @@ import nsgl.pair.Pair;
  * <p>Description: An indexed collection</p>
  *
  */
-public interface Indexed<L,T> extends Collection<T>{
+public interface Indexed<L,T> extends Searchable<L,T>{
 	/**
-	 * Sets an element with the given location into the Indexed Structure
-	 * @param loc Location for setting the object 
-	 * @param value The element to be set
-	 * @return <i>true</i> if the element was set, <i>false</i> otherwise
+	 * Obtains the object that has the given key
+	 * @param key Key of the object
+	 * @return Object with the given key 
 	 */
-	boolean set( L loc, T value );
-
-	/**
-	 * Inserts an element with the given location into the Indexed Structure
-	 * @param loc Location for inserting the object 
-	 * @param value The element to be inserted
-	 * @return <i>true</i> if the element was inserted, <i>false</i> otherwise
-	 */
-	boolean insert( L loc, T value );
-
-	/**
-	 * Removes the next element returned by the iterator
-	 * @param loc Location of the object to be deleted in the structure
-	 * @return <i>true</i> if the next element returned by the iterator could be removed, <i>false</i> otherwise
-	 */
-	boolean remove( L loc );
+	@SuppressWarnings("unchecked")
+	default T obtain(Object loc){ return get((L)loc); }
 	
 	/**
 	 * Determines if there is an object in the collection at the given location
@@ -79,13 +64,6 @@ public interface Indexed<L,T> extends Collection<T>{
 	boolean valid( L loc );	
 
 	/**
-	 * Sets an element into the KeyMap using the given key
-	 * @param pair Location,Value pair for the setting process
-	 * @return <i>true</i> if the element was set using the given key, <i>false</i> otherwise
-	 */
-	default boolean set( Pair<L,T> pair ){ return set(pair.a(), pair.b()); }
-
-	/**
 	 * Gets the object that is at a given location or <i>null</i> if there is not object at such location
 	 * @param loc Location of the object
 	 * @return the object that is at the given location or <i>null</i> if there is not object in such location
@@ -93,13 +71,37 @@ public interface Indexed<L,T> extends Collection<T>{
 	T get( L loc );
 
 	/**
-	 * Obtains the object that has the given key
-	 * @param key Key of the object
-	 * @return Object with the given key 
+	 * Sets an element with the given location into the Indexed Structure
+	 * @param loc Location for setting the object 
+	 * @param value The element to be set
+	 * @return <i>true</i> if the element was set, <i>false</i> otherwise
 	 */
-	@SuppressWarnings("unchecked")
-	default T obtain(Object loc){ return get((L)loc); }
+	boolean set( L loc, T value );
+
+	/**
+	 * Removes the next element returned by the iterator
+	 * @param loc Location of the object to be deleted in the structure
+	 * @return <i>true</i> if the next element returned by the iterator could be removed, <i>false</i> otherwise
+	 */
+	boolean remove( L loc );
 	
+	/**
+	 * Sets an element into the KeyMap using the given key
+	 * @param pair Location,Value pair for the setting process
+	 * @return <i>true</i> if the element was set using the given key, <i>false</i> otherwise
+	 */
+	default boolean set( Pair<L,T> pair ){ return set(pair.a(), pair.b()); }
+
+	/**
+	 * Obtains the location of the object into the search collection
+	 * @param data Data object to be located
+	 * @return A location (collection dependent) where the object is located, <i>null</i> if the object is not in the search collection
+	 */
+	@Override
+	default L find(T data) {
+		for( L i:locations() ) if( Comparable.cast(get(i)).eq(data) ) return i;
+		return null;
+	}
 	
 	/**
 	 * Collection of keys

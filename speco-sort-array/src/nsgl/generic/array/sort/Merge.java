@@ -1,6 +1,7 @@
 package nsgl.generic.array.sort;
 
 import nsgl.generic.array.Sort;
+import nsgl.integer.L2HOrder;
 import nsgl.order.Order;
 
 /**
@@ -11,13 +12,11 @@ import nsgl.order.Order;
  * @author Jonatan Gomez Perdomo
  * @version 1.0
  */
-public class Merge<T> extends Sort<T> {
-
+public class Merge extends Sort {
     /**
      * InsertionSort for sorting an array of less than 8 elements
      */
-    protected Insertion<T> insertion;
-
+    protected Insertion insertion;
     /**
      * Crates a sorting algorithm with the given order
      * @param order Order used for sorting the objects
@@ -31,23 +30,35 @@ public class Merge<T> extends Sort<T> {
      * @param end Final position in the array to be sorted
      */
     public Merge(Order order, int start, int end){ super(order, start, end ); }
+    
+    protected int type;
+    
+    protected Object copy( Object a, int start, int n ) {
+    	Object x;
+    	if( a instanceof int[] ) x = new int[n];
+    	else if( a instanceof long[] ) x = new long[n];
+    	else if( a instanceof double[] ) x = new double[n];
+    	else if( a instanceof char[] ) x = new char[n];
+    	else if( a instanceof byte[] ) x = new byte[n];
+    	else x = new Object[n];
+		System.arraycopy(a, start, x, 0, n);
+		return x;
+    }
 
     /**
      * Sorts a portion of the array of objects according to the given order (it does not creates a new array)
      * @param a Array of objects to be sorted
      * @param start Initial position in the array to be sorted
-     * @param end Final position in the array to be sorte
+     * @param end Final position in the array to be sorted
      * @return <i>true</i> If the sorting process was done without fails, <i>false</i> otherwise
      */
-	protected void apply(T[] a, int start, int end, Order order) {
-		insertion = new Insertion<T>(order);
+	public void apply(Object a, int start, int end, Order order) {
+		insertion = new Insertion(order);
 		int i=start;
-		while( i<end-1 && order.compare(a[i], a[i+1]) <= 0 ){ i++; }
+		while( i<end-1 && order.compare(java.lang.reflect.Array.get(a, i), java.lang.reflect.Array.get(a, i+1)) <= 0 ){ i++; }
         if( i<end-1 ){
         	int n = end - start;
-        	@SuppressWarnings("unchecked")
-        	T[] ca = (T[])new Object[n];
-        	System.arraycopy(a, start, ca, 0, n);
+        	Object ca = copy(a, start, n);
         	this.rec_apply( ca );
         	System.arraycopy(ca,0,a,start,n);
         }
@@ -57,43 +68,53 @@ public class Merge<T> extends Sort<T> {
      * Recursive merge sort method
      * @param a Array to be sorted
      */
-    public void rec_apply(T[] a) {
-        int n = a.length;
+    public void rec_apply(Object a) {
+        int n = java.lang.reflect.Array.getLength(a);
         if (n > 7) {
-            int nizq = n / 2;
-            int nder = n - nizq;
-            @SuppressWarnings("unchecked")
-			T[] aIzq = (T[])new Object[nizq];
-            @SuppressWarnings("unchecked")
-			T[] aDer = (T[])new Object[nder];
+            int nLeft = n / 2;
+            int nRight = n - nLeft;
+			Object aLeft = copy(a,0,nLeft);
+			Object aRight = copy(a, nLeft, nRight);
 
-            System.arraycopy(a, 0, aIzq, 0, nizq );
-            System.arraycopy(a, nizq, aDer, 0, nder );
-            this.rec_apply(aIzq);
-            this.rec_apply(aDer);
+            this.rec_apply(aLeft);
+            this.rec_apply(aRight);
             int k = 0;
-            int izq = 0;
-            int der = 0;
-            while (izq < nizq && der < nder) {
-                if(order.compare(aIzq[izq], aDer[der]) < 0) {
-                    a[k] = aIzq[izq];
-                    izq++;
+            int left = 0;
+            int right = 0;
+            Object x = java.lang.reflect.Array.get(aLeft,left);
+            Object y = java.lang.reflect.Array.get(aRight,right);
+            while (left < nLeft && right < nRight) {
+                if(order.compare(x, y) < 0) {
+                	java.lang.reflect.Array.set(a,k,x);
+                    left++;
+                    if( left<nLeft ) x = java.lang.reflect.Array.get(aLeft,left);
                 } else {
-                    a[k] = aDer[der];
-                    der++;
+                	java.lang.reflect.Array.set(a,k,y);
+                    right++;
+                    if( right<nRight ) y = java.lang.reflect.Array.get(aRight,right);
                 }
                 k++;
-            } while (izq < nizq) {
-                a[k] = aIzq[izq];
-                izq++;
+            } 
+            while (left < nLeft) {
+            	java.lang.reflect.Array.set(a,k, java.lang.reflect.Array.get(aLeft,left));
+                left++;
                 k++;
-            } while (der < nder) {
-                a[k] = aDer[der];
-                der++;
+            } while (right < nRight) {
+            	java.lang.reflect.Array.set(a,k, java.lang.reflect.Array.get(aRight,right));
+                right++;
                 k++;
             }
         } else {
             insertion.apply(a);
         }
     }
+    
+    public static void main( String[] args ) {
+    	Order order = new L2HOrder();
+    	Merge sort = new Merge(order);
+    	int[] x = new int[] {3,1,5,9,7,13,11,15,4,2,8,6,0,12,10,16,14,18};
+    	sort.apply(x, 0, x.length, order);
+    	for( int i=0; i<x.length; i++)
+    		System.out.println(x[i]);
+    } 
 }

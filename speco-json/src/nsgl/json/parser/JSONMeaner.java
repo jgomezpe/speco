@@ -1,6 +1,6 @@
 package nsgl.json.parser;
 
-import nsgl.generic.array.DynArray;
+import nsgl.generic.array.Vector;
 import nsgl.exception.IO;
 import nsgl.json.JSON;
 import nsgl.language.LexemeSet;
@@ -21,9 +21,9 @@ public class JSONMeaner implements Meaner<Object>{
 		if( obj instanceof Token ) return lexemes.map((Token)obj);
 		@SuppressWarnings({"rawtypes" })
 		TypedValue tv = (TypedValue)obj;
-		if( tv.value() instanceof DynArray ){
-			DynArray<Object> f = new DynArray<Object>();
-			DynArray<Typed> v = (DynArray<Typed>)tv.value(); 
+		if( tv.value() instanceof Vector ){
+			Vector<Object> f = new Vector<Object>();
+			Vector<Typed> v = (Vector<Typed>)tv.value(); 
 			for( Typed t:v ) f.add(apply(t));
 			if( f.size() > 0 && f.get(0) instanceof Pair) {
 				JSON json = new JSON();

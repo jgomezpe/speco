@@ -11,7 +11,7 @@ import nsgl.order.Order;
  * @author Jonatan Gomez Perdomo
  * @version 1.0
  */
-public class Insertion<T> extends Sort<T> {
+public class Insertion extends Sort{
     /**
      * Crates a sorting algorithm with the given order
      * @param order Order used for sorting the objects
@@ -30,15 +30,16 @@ public class Insertion<T> extends Sort<T> {
    * Sorts a vector of objects using Insertion sort
    * @param a array to be sorted
    */
-	public void apply(T[] a, int start, int end, Order order) {
-		for (int i = start; i < end; i++) {
+	public void apply(Object a, int start, int end, Order order) {
+		for (int i = start+1; i < end; i++) {
+			Object y;
+			Object x = java.lang.reflect.Array.get(a, i);
 			int j = i - 1;
-			T value = a[i];
-			while(j >= start && order.compare(value, a[j])<0) {
-				a[j+1] = a[j];
+			while(j >= start && order.compare(x, y=java.lang.reflect.Array.get(a, j))<0) {
+				java.lang.reflect.Array.set(a, j+1, y);
 				j--;
 			}
-			a[j+1] = value;
+			java.lang.reflect.Array.set(a, j+1, x);
 		}
 	}
 }
