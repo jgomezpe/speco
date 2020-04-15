@@ -75,6 +75,11 @@ public class Vector<T> extends Dynamic<T>{
 		resize();
 	}
 
+	public Array<T> instance(int n){
+		if( buffer != null ) return new Vector<T>(java.lang.reflect.Array.newInstance(buffer.getClass().getComponentType(),n));
+		return new Vector<T>(n);
+	}
+	
 	
 	/**
 	 * Reset the array to initial values (including the buffer size)
@@ -125,10 +130,16 @@ public class Vector<T> extends Dynamic<T>{
 		return true;
 	}	
 	
+	public boolean del( T x ) {
+		Integer index = find(x);
+		if( index==null ) return false;
+		return remove(index);
+	}
+	
 	public static void main( String[] args ) {
-		Vector<Integer> A = new Vector<Integer>();
-		for( int i=0; i<1000; i++ ) A.add(i);
-		for( int i=0; i<100; i++ ) A.add(i*10, 100000);
+		Vector<String> A = new Vector<String>();
+		for( int i=0; i<1000; i++ ) A.add(""+i);
+		for( int i=0; i<100; i++ ) A.add(i*10, ""+100000);
 		for( int i=0; i<A.size(); i++ ) System.out.println(A.get(i));
 		for( int i=0; i<A.size(); i+=10 ) A.remove(i);
 		for( int i=0; i<A.size(); i++ ) System.out.println(A.get(i));

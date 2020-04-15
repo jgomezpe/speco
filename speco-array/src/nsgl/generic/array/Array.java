@@ -25,9 +25,11 @@ public class Array<T> implements Indexed<Integer,T>, Sized, Copyable{
 	protected int initSize() { return size; }	
 
 	protected Object copy(int n) {
-		Object nbuffer = java.lang.reflect.Array.newInstance(buffer.getClass().getComponentType(),n);
-		System.arraycopy(buffer, 0, nbuffer, 0, Math.min(n, java.lang.reflect.Array.getLength(buffer)));
-		return nbuffer;
+		if( buffer != null ) {
+			Object nbuffer = java.lang.reflect.Array.newInstance(buffer.getClass().getComponentType(),n);
+			System.arraycopy(buffer, 0, nbuffer, 0, Math.min(n, java.lang.reflect.Array.getLength(buffer)));
+			return nbuffer;
+		}else return null;
 	}
 	
 	protected void init( Class<?> cl ) {
@@ -37,7 +39,7 @@ public class Array<T> implements Indexed<Integer,T>, Sized, Copyable{
 			else if( cl.getName().equals("java.lang.Long") ) buffer = new long[initSize()];
 			else if( cl.getName().equals("java.lang.Character") ) buffer = new char[initSize()];
 			else if( cl.getName().equals("java.lang.Byte") ) buffer = new byte[initSize()];
-			else  buffer = java.lang.reflect.Array.newInstance(cl, initSize());	
+			else  buffer = new Object[initSize()];	
 		}
 	}
 	
@@ -158,8 +160,8 @@ public class Array<T> implements Indexed<Integer,T>, Sized, Copyable{
 	public Iterable<Integer> locations() { return new Interval(size()); }
 	
 	public static void main( String[] args ) {
-		Array<Integer> a = new Array<Integer>(100);
-		a.set(0, 12);
+		Array<String> a = new Array<String>(100);
+		a.set(0, "12");
 		System.out.println(a.get(0));
 		Array<Double> b = new Array<Double>(100);
 		b.set(0, 12.0);

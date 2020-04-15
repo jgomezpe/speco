@@ -42,7 +42,9 @@ public class Sorted<T> extends Vector<T>{
     public Integer find( T data ){
     	init( data.getClass() );
     	search.set(buffer);
-    	return search.find(0,size(),data);
+    	int index = search.find(0,size(),data);
+    	if( index < 0 ) return null;
+    	return index;
     }
 
     public boolean add( T data ){

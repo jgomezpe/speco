@@ -19,9 +19,17 @@ public class DynamicWithMaxSize<T> extends Dynamic<T>{
 		this.size = s;
 	}
 	
+	public Array<T> instance(int n){
+		if( buffer != null ) return new DynamicWithMaxSize<T>(java.lang.reflect.Array.newInstance(buffer.getClass().getComponentType(),n));
+		return new DynamicWithMaxSize<T>(n);
+	}
+	
+	
 	@Override
-	public boolean ready4Add() { return size()<maxSize; }
+	protected boolean ready4Add() { return size()<maxSize; }
 
 	@Override
-	public int initSize() { return maxSize; }
+	protected int initSize() { return maxSize; }
+	
+	public int maxSize() { return maxSize; }
 }
