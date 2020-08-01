@@ -1,23 +1,28 @@
 package nsgl.json;
 
+import java.io.IOException;
+
+import nsgl.character.CharacterSequence;
 import nsgl.copy.Copyable;
-import nsgl.json.parser.JSONLexer;
-import nsgl.json.parser.JSONMeaner;
-import nsgl.json.parser.JSONParser;
 import nsgl.generic.hashmap.HashMap;
 import nsgl.language.Language;
+import nsgl.parse.Parseable;
 import nsgl.stringify.Stringifyable;
 
-public class JSON extends HashMap<String, Object> implements Copyable, Stringifyable{
+public class JSON extends HashMap<String, Object> implements Copyable, Stringifyable, Parseable{
 	protected static Language<Object> lang = null;
 
 	public JSON(){}
 	
-	public JSON( String code )throws Exception{
+	public JSON( String code )throws IOException{
+	    this( new CharacterSequence(code));
+	}
+	
+	public JSON( CharacterSequence code )throws IOException{
 		if( lang == null ){
-			JSONLexer lexer = new JSONLexer();
-			JSONParser parser = new JSONParser();
-			JSONMeaner meaner = new JSONMeaner(lexer);
+			Lexer lexer = new Lexer();
+			Parser parser = new Parser();
+			Meaner meaner = new Meaner();
 			lang = new Language<Object>(lexer, parser, meaner);		
 		}
 		Object obj = lang.process(code);
@@ -128,5 +133,8 @@ public class JSON extends HashMap<String, Object> implements Copyable, Stringify
 		}catch( Exception e ){}	
 		sb.append('}');
 		return sb.toString();
-	}	
+	}
+
+	@Override
+	public Object parse(CharacterSequence input) throws IOException { return new JSON(input); }	
 }

@@ -27,4 +27,10 @@ public class Queue<T> extends List<T>{
 		}
 		return false;
 	}
+	
+	public T peek() {
+		T t = head.data;
+		del();
+		return t;
+	}
 }
