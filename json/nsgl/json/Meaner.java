@@ -9,8 +9,13 @@ import nsgl.language.TypedValue;
 import nsgl.pair.Pair;
 
 public class Meaner implements nsgl.language.Meaner<Object>{
+	protected boolean JSON;
 	
-	public Meaner() {}
+	public Meaner() { this(false); }
+	
+	public Meaner(boolean json){
+		this.JSON = json;
+	}
 	
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -28,7 +33,7 @@ public class Meaner implements nsgl.language.Meaner<Object>{
 
 		if( type.equals(Parser.OBJECT) ){
 			Vector<Typed> v = (Vector<Typed>)tv.value(); 
-			JSON json = new JSON();
+			JXON json = JSON?new JSON():new JXON();
 			for( Typed a:v ){
 			    Pair<String,Object> attribute = (Pair<String,Object>)apply(a);
 			    if(json.valid(attribute.a())) throw ((Token)((Typed[])((TypedValue)a).value())[0]).exception("Attribute redefinition");

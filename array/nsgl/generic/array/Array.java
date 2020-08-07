@@ -159,7 +159,15 @@ public class Array<T> implements Indexed<Integer,T>, Sized, Copyable{
 	@Override
 	public Iterable<Integer> locations() { return new Interval(size()); }
 	
+	public Object[] toArray() {
+	    Object[] obj = new Object[size()];
+	    for(int i=0; i<obj.length; i++ ) obj[i] = get(i); 
+	    return obj;
+	}
+	
 	public static void main( String[] args ) {
+	    int[] x = new int[10];
+	    if( x.getClass().isArray() ) System.out.println("Is array.."+ x.getClass().getComponentType().isPrimitive());
 		Array<String> a = new Array<String>(100);
 		a.set(0, "12");
 		System.out.println(a.get(0));

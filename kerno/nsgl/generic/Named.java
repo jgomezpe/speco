@@ -51,12 +51,11 @@ package nsgl.generic;
 public interface Named {
 	public static final String ID = "id";
 	
-	default String id(){ return this.getClass().getSimpleName(); }
+	String id();
+	void id(String id);
 	
 	default String[] ids(){
 		String id = id(); 
 		if( id!=null ) return id.split(","); else return null;  
 	}
-	
-	public void setId( String id );	
 }
