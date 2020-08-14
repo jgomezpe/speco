@@ -39,7 +39,7 @@ public class JSON extends HashMap<String, Object> implements Copyable, Stringify
 				Copyable c = Copyable.cast(obj);
 				set(key, c.copy());
 			}
-		}catch(Exception e){}	
+		}catch(Exception e){ e.printStackTrace(); }	
 	}
 	
 	@Override
