@@ -5,12 +5,12 @@ import java.io.IOException;
 import nsgl.blob.Parse;
 import nsgl.character.CharacterSequence;
 import nsgl.copy.Copyable;
+import nsgl.generic.Thing;
 import nsgl.generic.hashmap.HashMap;
 import nsgl.language.Language;
-import nsgl.parse.Parseable;
 import nsgl.stringify.Stringifyable;
 
-public class JSON extends HashMap<String, Object> implements Copyable, Stringifyable, Parseable{	
+public class JSON extends HashMap<String, Object> implements Copyable, Thing{	
 	public JSON(){}
 		
 	public JSON( String code )throws IOException{
@@ -33,19 +33,13 @@ public class JSON extends HashMap<String, Object> implements Copyable, Stringify
 	}
 	
 	public JSON( JSON source ){
-		try{
-			for( String key:source.keys() ){
-				Object obj = source.get(key);
-				Copyable c = Copyable.cast(obj);
-				set(key, c.copy());
-			}
-		}catch(Exception e){ e.printStackTrace(); }	
+		config(source);	
 	}
 	
 	@Override
 	public Object copy(){ return new JSON(this); }
 	
-	public double getReal( String tag ){
+	public double real( String tag ){
 		try{
 			Object obj = get(tag);
 			if( obj instanceof Double ) return (Double)obj;
@@ -54,11 +48,11 @@ public class JSON extends HashMap<String, Object> implements Copyable, Stringify
 		return 0;
 	}
 	
-	public int getInt( String tag ){ try{ return (Integer)get(tag); }catch(Exception e){ return 0; } } 
+	public int integer( String tag ){ try{ return (Integer)get(tag); }catch(Exception e){ return 0; } } 
 	
-	public boolean getBool( String tag ){ try{ return (Boolean)get(tag); }catch(Exception e){ return false; } }
+	public boolean bool( String tag ){ try{ return (Boolean)get(tag); }catch(Exception e){ return false; } }
 
-	public byte[] getBlob( String tag ){
+	public byte[] blob( String tag ){
 	    Object obj = get(tag);
 	    try{ 
 		if( obj instanceof String ) {
@@ -70,12 +64,12 @@ public class JSON extends HashMap<String, Object> implements Copyable, Stringify
 	    }catch(Exception e){ return null; } 
 	}
 
-	public String getString( String tag ){ try{ return (String)get(tag); }catch(Exception e){ return null; } }
+	public String string( String tag ){ try{ return (String)get(tag); }catch(Exception e){ return null; } }
 
-	public Object[] getArray( String tag ){ try{ return (Object[])get(tag); }catch(Exception e){ return null; } }
+	public Object[] array( String tag ){ try{ return (Object[])get(tag); }catch(Exception e){ return null; } }
 
-	public int[] getIntArray( String tag ){ 
-		Object[] a = getArray(tag);
+	public int[] integers_array( String tag ){ 
+		Object[] a = array(tag);
 		int[] x = null;
 		if( a!=null ){
 			x = new int[a.length];
@@ -86,8 +80,8 @@ public class JSON extends HashMap<String, Object> implements Copyable, Stringify
 		} 
 		return x;
 	}
-	public double[] getRealArray( String tag ){
-		Object[] a = getArray(tag);
+	public double[] reals_array( String tag ){
+		Object[] a = array(tag);
 		double[] x = null;
 		if( a!=null ){
 			x = new double[a.length];
@@ -99,7 +93,7 @@ public class JSON extends HashMap<String, Object> implements Copyable, Stringify
 		return x;
 	}
 
-	public JSON getJSON( String tag ){ try{ return (JSON)get(tag); }catch(Exception e){ return null; } }
+	public JSON object( String tag ){ try{ return (JSON)get(tag); }catch(Exception e){ return null; } }
 
 	
 	public boolean storable(Object obj){
@@ -156,4 +150,20 @@ public class JSON extends HashMap<String, Object> implements Copyable, Stringify
 	}
 
 	@Override
-	public Object parse(CharacterSequence input) throws IOException { return new JSON(input); }	}
+	public Object parse(CharacterSequence input) throws IOException { return new JSON(input); }
+
+	@Override
+	public JSON json() { return this; }
+
+	@Override
+	public void config(JSON json){
+		this.clear();
+		try{
+			for( String key:json.keys() ){
+				Object obj = json.get(key);
+				Copyable c = Copyable.cast(obj);
+				set(key, c.copy());
+			}
+		}catch(Exception e){ e.printStackTrace(); }	
+	}	
+}

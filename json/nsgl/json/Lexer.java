@@ -7,12 +7,11 @@ public class Lexer extends nsgl.language.Lexer{
 	public static final String RESERVED = "reserved";
 	
 	public Lexer() {
-		add( new nsgl.integer.Parse(), 2 );
-		add( new nsgl.real.Parse(), 1 );
-		add( new nsgl.string.Parse(), 2 );
-		add( new nsgl.character.Parse(), 2 );
-		add( new Space(), 2 );
-		add( new Symbol("\\[\\]\\{\\},:"), 2 );
-		add( new Reserved(), 2 );
+		add( new nsgl.number.Parse());
+		add( new nsgl.string.Parse());
+		add( new nsgl.character.Parse());
+		add( new Space());
+		add( new Symbol("\\[\\]\\{\\},:"));
+		add( new Reserved());
 	}
 }

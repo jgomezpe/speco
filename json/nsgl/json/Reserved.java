@@ -10,10 +10,10 @@ public class Reserved extends Regex{
 	public Reserved(){ super("true|false|null", Lexer.RESERVED); }	
 	
 	@Override
-	protected Object instance(CharacterSequence input, String matched) throws IOException {
+	public Object instance(CharacterSequence input, String matched) throws IOException {
 		if( matched.equals("true") ) return true;
 		if( matched.equals("false") ) return false;
 		if( matched.equals("null") ) return null;
-		return null;
+		throw input.exception("·Invalid "+Lexer.RESERVED+"· ", 0);
 	}
 }
