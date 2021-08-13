@@ -36,20 +36,48 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package nsgl.generic;
+package speco.object;
 
-import java.io.IOException;
+import java.util.Iterator;
 
 /**
- * <p>Title: Closable</p>
+ * <p>Title: CastIterable</p>
  *
- * <p>Description: A collection that can be closed after using it</p>
+ * <p>Description: A collection that contains casted version (to type &lt;T&gt;) of objects (from type &lt;S&gt;) in another collection.</p>
  *
  */
-public interface Closable{
+public abstract class Cast<S,T> implements Iterable<T>{
 	/**
-	 * Closes the collection
-	 * @throws IOException if the collection cannot be closed
+	 * Original collection
 	 */
-	default void close() throws IOException{}; 
+	protected Iterable<S> col=null;
+	
+	/**
+	 * Creates a collection with casted versions of the objects in the given collection
+	 * @param col Collection to be transformed
+	 */
+	public Cast( Iterable<S> col ){ this.col = col; }
+	
+	/**
+	 * Cast operation
+	 * @param x Object to be casted from class &lt;S&gt; to class &lt;T&gt;
+	 * @return A casted version of the given object
+	 */
+	protected abstract T cast( S x );
+    
+	/**
+	 * Gets an iterator over the casted objects
+	 * @return An iterator of casted versions of the original collection
+	 */
+	@Override
+	public Iterator<T> iterator(){ 
+		Iterator<S> iter = col.iterator();
+		return new Iterator<T>() {
+			@Override
+			public boolean hasNext(){ return iter.hasNext(); }
+			
+			@Override
+			public T next(){ return cast(iter.next()); }			
+		};
+	}
 }
