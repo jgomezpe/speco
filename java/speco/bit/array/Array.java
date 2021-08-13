@@ -1,13 +1,12 @@
-package nsgl.bit.array;
+package speco.bit.array;
 import java.util.Iterator;
 
-import nsgl.bit.random.Random;
-import nsgl.copy.Copyable;
-import nsgl.generic.Sized;
-import nsgl.generic.collection.Indexed;
-import nsgl.integer.Interval;
+import kopii.Copyable;
+
+/*import nsgl.bit.random.Random;
 import nsgl.integer.random.Uniform;
-import nsgl.random.raw.RawGenerator;
+import nsgl.object.Copyable;
+*/
 
 /**
  * <p>Title: Array</p>
@@ -20,7 +19,7 @@ import nsgl.random.raw.RawGenerator;
  *
  */
 
-public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
+public class Array implements Iterable<Boolean>, Copyable{
 	/**
 	 * Integer array used to store the bits
 	 */
@@ -36,14 +35,14 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
 	 * @param data The bits that will conform the bit array
 	 * @param n The size of the bit array
 	 */
-	protected Array(int[] data, int n){
+	public Array(int[] data, int n){
 		this.data = data;
 		this.n = n;
 	}
 	
 	public Array( int n ) {
-		this.n = n;
-		int m = getIndex(n) + 1;
+	    this.n = n;
+	    int m = getIndex(n) + 1;
 	    data = new int[m];
 	}
 
@@ -66,32 +65,12 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
 	}
 
 	/**
-	 * Constructor: Creates a bit array of n bits, in a random way 
-	 * @param n The size of the bit array
-	 * @param rand Raw generator for initializing the bit array
-	 */
-	public Array(int n, RawGenerator rand) {
-		this(n);
-		Uniform g = new Uniform(nsgl.integer.Util.HIGHEST_BIT >>> 1);
-		Random rg = new Random();
-		if(rand!=null) {
-			g.setRaw(rand);
-			rg.setRaw(rand);
-		}
-		g.generate( data, 0, n );
-		for (int i = 0; i<n; i++) if(rg.next()) data[i] = -data[i]; 
-	}
-
-	@Override
-	public Object copy(){ return new Array((int[])data.clone(), n); }
-
-	/**
 	 * Returns the buffer position (the integer that contains the bit) of an specific bit
 	 * <p>  m DIV INTEGER_SIZE </P>
 	 * @param m The bit index
 	 * @return The buffer position of an specific bit
 	 */
-	protected int getIndex (int  m){ return (m >>> nsgl.integer.Util.DIV_MASK); }
+	protected int getIndex (int  m){ return (m >>> speco.integer.Util.DIV_MASK); }
 
 	/**
 	 * Returns the position of a specific bit in the integer that contains it.
@@ -99,17 +78,28 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
 	 * @param m The bit index
 	 * @return The position of a specific bit in the integer that contains it
 	 */
-	protected int getBit(int m){ return (m & nsgl.integer.Util.MOD_MASK); }
+	protected int getBit(int m){ return (m & speco.integer.Util.MOD_MASK); }
 
 	/**
 	 * Sets a bit to a given value
 	 * @param i The bit index
 	 * @param v The new value for the bit
+	 * @return <i>true</i> if the bit could be set, <i>false</i> otherwise 
+	 */
+	public boolean set(int i, Boolean v) {
+	    return set(i,(boolean)v);
+	}
+	
+	/**
+	 * Sets a bit to a given value
+	 * @param i The bit index
+	 * @param v The new value for the bit
+	 * @return <i>true</i> if the bit could be set, <i>false</i> otherwise 
 	 */
 	public boolean set(int i, boolean v) {
 		int m = getIndex(i);
 		int p = getBit(i);
-		int vmask = (nsgl.integer.Util.HIGHEST_BIT >>> p);
+		int vmask = (speco.integer.Util.HIGHEST_BIT >>> p);
 		int dmask = vmask & data[m];
 		if(v){ if (dmask == 0){ data[m] |= vmask; };
 		}else { if (dmask != 0) { data[m] ^= vmask; }  }
@@ -121,10 +111,10 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
    * @param i The bit index
    * @return The boolean value of a specific position
    */
-  public boolean get(int i){
+  public Boolean get(int i){
     int m = getIndex(i);
     int p = getBit(i);
-    return (((nsgl.integer.Util.HIGHEST_BIT >>> p) & data[m]) != 0);
+    return (((speco.integer.Util.HIGHEST_BIT >>> p) & data[m]) != 0);
   }
 
   /**
@@ -137,7 +127,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
    * @return A sub bit array of the bit array starting from the position start until the end of the bit array.
    */
   public Array subArray(int start) {
-    Array subArray = (Array)copy();
+    Array subArray = (Array)new Array(this.data.clone(), this.n);
     subArray.leftShift(start);
     subArray.n -= start;
     if (subArray.n < 0) { subArray.n = 0; }
@@ -175,7 +165,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
       int startindex = getIndex(k);
       k = getBit(k);
       if (k > 0) {
-        int supk = nsgl.integer.Util.INTEGER_SIZE - k;
+        int supk = speco.integer.Util.INTEGER_SIZE - k;
         int m = data.length - 1;
         int j = 0;
         for (int i = startindex; i < m; i++) {
@@ -207,7 +197,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
       int startindex = getIndex(k);
       k = getBit(k);
       if (k > 0) {
-        int supk = nsgl.integer.Util.INTEGER_SIZE - k;
+        int supk = speco.integer.Util.INTEGER_SIZE - k;
         //int m = data.length - 1;
         int j = data.length - 1 - startindex;
         for (int i = data.length - 1; i > startindex; i--) {
@@ -248,12 +238,12 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
    * @param v The bit to be added
    */
   public void add(boolean v) {
-    if (data.length * nsgl.integer.Util.INTEGER_SIZE == n) {
+    if (data.length * speco.integer.Util.INTEGER_SIZE == n) {
       int[] newdata = new int[data.length + 1];
       for (int i = 0; i < data.length; i++) {
         newdata[i] = data[i];
       }
-      if (v) { newdata[data.length] = nsgl.integer.Util.HIGHEST_BIT;
+      if (v) { newdata[data.length] = speco.integer.Util.HIGHEST_BIT;
       } else { newdata[data.length] = 0; }
       data = newdata;
     } else {
@@ -314,7 +304,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
     if (data != null && 0 <= m && m < data.length) {
       int r = getBit(start);
       int mask;
-      if (r > 0) { mask = nsgl.integer.Util.ONE_BITS << (nsgl.integer.Util.INTEGER_SIZE - r);
+      if (r > 0) { mask = speco.integer.Util.ONE_BITS << (speco.integer.Util.INTEGER_SIZE - r);
       } else { mask = 0; }
       data[m] &= mask;
       for (int i = m + 1; i < data.length; i++) {
@@ -333,10 +323,10 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
     int m = getIndex(start);
     if (0 <= m && m < data.length) {
       int r = getBit(start);
-      int mask = nsgl.integer.Util.ONE_BITS >>> r;
+      int mask = speco.integer.Util.ONE_BITS >>> r;
       data[m] |= mask;
       for (int i = m + 1; i < data.length; i++) {
-        data[i] = nsgl.integer.Util.ONE_BITS;
+        data[i] = speco.integer.Util.ONE_BITS;
       }
     }
   }
@@ -352,7 +342,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
     int m = getIndex(end);
     if (0 <= m && m < data.length) {
       int r = getBit(end);
-      int mask = nsgl.integer.Util.ONE_BITS >>> r;
+      int mask = speco.integer.Util.ONE_BITS >>> r;
       data[m] &= mask;
       for (int i = 0; i < m; i++) {
         data[i] = 0;
@@ -370,10 +360,10 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
     int m = getIndex(end);
     if (0 <= m && m < data.length) {
       int r = getBit(end);
-      int mask = nsgl.integer.Util.ONE_BITS << (nsgl.integer.Util.INTEGER_SIZE - r);
+      int mask = speco.integer.Util.ONE_BITS << (speco.integer.Util.INTEGER_SIZE - r);
       data[m] |= mask;
       for (int i = 0; i < m; i++) {
-        data[i] = nsgl.integer.Util.ONE_BITS;
+        data[i] = speco.integer.Util.ONE_BITS;
       }
     }
   }
@@ -435,7 +425,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
    */
   public void not() {
     for (int i = 0; i < data.length; i++) {
-      data[i] ^= nsgl.integer.Util.ONE_BITS;
+      data[i] ^= speco.integer.Util.ONE_BITS;
     }
   }
 
@@ -449,7 +439,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
   public void not(int bit) {
     int m = getIndex(bit);
     int p = getBit(bit);
-    data[m] ^= (nsgl.integer.Util.HIGHEST_BIT >>> p);
+    data[m] ^= (speco.integer.Util.HIGHEST_BIT >>> p);
   }
 
   /**
@@ -480,7 +470,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
         for (int i = 0; i < data.length - 1 && flag; i++) flag = (data[i] == other.data[i]);
         if(flag){
         	try{
-        		for (int i = (data.length - 1) * nsgl.integer.Util.INTEGER_SIZE; i < s && flag; i++)	flag = (get(i) == other.get(i));
+        		for (int i = (data.length - 1) * speco.integer.Util.INTEGER_SIZE; i < s && flag; i++)	flag = (get(i) == other.get(i));
         	}catch(Exception e ){}
         }
       }
@@ -501,7 +491,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
    */
   public int getInt (int i) {
     int x = data[i];
-    if (useGrayCode) { x = nsgl.integer.Util.grayToBinary(x); }
+    if (useGrayCode) { x = speco.integer.Util.grayToBinary(x); }
     return x;
   }
 
@@ -512,7 +502,7 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
    */
   public void setInt (int i, int value) {
     if (useGrayCode) {
-      data[i] = nsgl.integer.Util.binaryToGray(value);
+      data[i] = speco.integer.Util.binaryToGray(value);
     } else {
       data[i] = value;
     }
@@ -548,24 +538,18 @@ public class Array implements Indexed<Integer, Boolean>, Sized, Copyable{
 	};
   }
   
-	@Override
-	public boolean remove(Integer index) { return remove((int)index); }
+
+	public boolean remove(int index) {
+	    del(index);
+	    return true;
+	}
+
+	public Array instance(int size) {
+	    return new Array(size);
+	}
 
 	@Override
-	public boolean set(Integer index, Boolean data){ return set((int)index,(boolean)data); }
-
-	@Override
-	public boolean valid(Integer index) { return 0<=index && index<size(); }
-
-	@Override
-	public Boolean get(Integer index) { return get((int)index); }	
-	
-	/**
-	 * Determines if the collection is empty or not
-	 * @return <i>true</i> if the collection is empty <i>false</i> otherwise
-	 */
-	public boolean isEmpty(){ return size()==0; }	
-
-	@Override
-	public Iterable<Integer> locations() { return new Interval(size()); }        
+	public Copyable copy() {
+	    return new Array((int[])data.clone(), n);
+	}
 }
