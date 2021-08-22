@@ -101,7 +101,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 	 * @param m The bit index
 	 * @return The buffer position of an specific bit
 	 */
-	protected int getIndex (int  m){ return (m >>> speco.integer.IntegerUtil.DIV_MASK); }
+	protected int getIndex (int  m){ return (m >>> speco.integer.IntUtil.DIV_MASK); }
 
 	/**
 	 * Returns the position of a specific bit in the integer that contains it.
@@ -109,7 +109,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 	 * @param m The bit index
 	 * @return The position of a specific bit in the integer that contains it
 	 */
-	protected int getBit(int m){ return (m & speco.integer.IntegerUtil.MOD_MASK); }
+	protected int getBit(int m){ return (m & speco.integer.IntUtil.MOD_MASK); }
 
 	/**
 	 * Sets a bit to a given value
@@ -128,7 +128,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 	public boolean set(int i, boolean v) {
 		int m = getIndex(i);
 		int p = getBit(i);
-		int vmask = (speco.integer.IntegerUtil.HIGHEST_BIT >>> p);
+		int vmask = (speco.integer.IntUtil.HIGHEST_BIT >>> p);
 		int dmask = vmask & data[m];
 		if(v){ if (dmask == 0) data[m] |= vmask; }
 		else { if (dmask != 0) data[m] ^= vmask;   }
@@ -143,7 +143,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 	public Boolean get(int i){
 		int m = getIndex(i);
 		int p = getBit(i);
-		return (((speco.integer.IntegerUtil.HIGHEST_BIT >>> p) & data[m]) != 0);
+		return (((speco.integer.IntUtil.HIGHEST_BIT >>> p) & data[m]) != 0);
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 			int startindex = getIndex(k);
 			k = getBit(k);
 			if (k > 0) {
-				int supk = speco.integer.IntegerUtil.INTEGER_SIZE - k;
+				int supk = speco.integer.IntUtil.INTEGER_SIZE - k;
 				int m = data.length - 1;
 				int j = 0;
 				for (int i = startindex; i < m; i++) {
@@ -226,7 +226,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 			int startindex = getIndex(k);
 			k = getBit(k);
 			if (k > 0) {
-				int supk = speco.integer.IntegerUtil.INTEGER_SIZE - k;
+				int supk = speco.integer.IntUtil.INTEGER_SIZE - k;
 				//int m = data.length - 1;
 				int j = data.length - 1 - startindex;
 				for (int i = data.length - 1; i > startindex; i--) {
@@ -267,10 +267,10 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 	 * @param v The bit to be added
 	 */
 	public void add(boolean v) {
-		if (data.length * speco.integer.IntegerUtil.INTEGER_SIZE == n) {
+		if (data.length * speco.integer.IntUtil.INTEGER_SIZE == n) {
 			int[] newdata = new int[data.length + 1];
 			for (int i = 0; i < data.length; i++) newdata[i] = data[i];
-			if (v)newdata[data.length] = speco.integer.IntegerUtil.HIGHEST_BIT;
+			if (v)newdata[data.length] = speco.integer.IntUtil.HIGHEST_BIT;
 			else newdata[data.length] = 0;
 			data = newdata;
 		} else  set(n, v);
@@ -323,7 +323,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 		if (data != null && 0 <= m && m < data.length) {
 			int r = getBit(start);
 			int mask;
-			if (r > 0) mask = speco.integer.IntegerUtil.ONE_BITS << (speco.integer.IntegerUtil.INTEGER_SIZE - r);
+			if (r > 0) mask = speco.integer.IntUtil.ONE_BITS << (speco.integer.IntUtil.INTEGER_SIZE - r);
 			else mask = 0;
 			data[m] &= mask;
 			for (int i = m + 1; i < data.length; i++) data[i] = 0;
@@ -340,10 +340,10 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 		int m = getIndex(start);
 		if (0 <= m && m < data.length) {
 			int r = getBit(start);
-			int mask = speco.integer.IntegerUtil.ONE_BITS >>> r;
+			int mask = speco.integer.IntUtil.ONE_BITS >>> r;
 			data[m] |= mask;
 			for (int i = m + 1; i < data.length; i++)
-				data[i] = speco.integer.IntegerUtil.ONE_BITS;
+				data[i] = speco.integer.IntUtil.ONE_BITS;
 		}
 	}
 
@@ -357,7 +357,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 		int m = getIndex(end);
 		if (0 <= m && m < data.length) {
 			int r = getBit(end);
-			int mask = speco.integer.IntegerUtil.ONE_BITS >>> r;
+			int mask = speco.integer.IntUtil.ONE_BITS >>> r;
 			data[m] &= mask;
 			for (int i = 0; i < m; i++)  data[i] = 0;
 		}
@@ -373,9 +373,9 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 		int m = getIndex(end);
 		if (0 <= m && m < data.length) {
 			int r = getBit(end);
-			int mask = speco.integer.IntegerUtil.ONE_BITS << (speco.integer.IntegerUtil.INTEGER_SIZE - r);
+			int mask = speco.integer.IntUtil.ONE_BITS << (speco.integer.IntUtil.INTEGER_SIZE - r);
 			data[m] |= mask;
-			for (int i = 0; i < m; i++) data[i] = speco.integer.IntegerUtil.ONE_BITS;
+			for (int i = 0; i < m; i++) data[i] = speco.integer.IntUtil.ONE_BITS;
 		}
 	}
 
@@ -430,7 +430,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 	 */
 	public void not() {
 		for (int i = 0; i < data.length; i++)
-			data[i] ^= speco.integer.IntegerUtil.ONE_BITS;
+			data[i] ^= speco.integer.IntUtil.ONE_BITS;
 	}
 
 	/**
@@ -443,7 +443,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 	public void not(int bit) {
 		int m = getIndex(bit);
 		int p = getBit(bit);
-		data[m] ^= (speco.integer.IntegerUtil.HIGHEST_BIT >>> p);
+		data[m] ^= (speco.integer.IntUtil.HIGHEST_BIT >>> p);
 	}
 
 	/**
@@ -476,7 +476,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 				for (int i = 0; i < data.length - 1 && flag; i++) flag = (data[i] == other.data[i]);
 				if(flag){
 					try{
-						for (int i = (data.length - 1) * speco.integer.IntegerUtil.INTEGER_SIZE; i < s && flag; i++)	flag = (get(i) == other.get(i));
+						for (int i = (data.length - 1) * speco.integer.IntUtil.INTEGER_SIZE; i < s && flag; i++)	flag = (get(i) == other.get(i));
 					}catch(Exception e ){}
 				}
 			}
@@ -497,7 +497,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 	 */
 	public int getInt (int i) {
 		int x = data[i];
-		if (useGrayCode) { x = speco.integer.IntegerUtil.grayToBinary(x); }
+		if (useGrayCode) { x = speco.integer.IntUtil.grayToBinary(x); }
 		return x;
 	}
 
@@ -507,7 +507,7 @@ public class BitArray implements Iterable<Boolean>, Copyable{
 	 * @param value The new integer for the given buffer position.
 	 */
 	public void setInt (int i, int value) {
-		if (useGrayCode) data[i] = speco.integer.IntegerUtil.binaryToGray(value);
+		if (useGrayCode) data[i] = speco.integer.IntUtil.binaryToGray(value);
 		else data[i] = value;
 	}
 

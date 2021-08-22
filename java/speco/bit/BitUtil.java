@@ -22,9 +22,9 @@ public class BitUtil {
 	public static int[] getIntArray(BitArray a, int intSize, boolean useGray) {
 		int n = a.size() / intSize;
 		int[] intVal = new int[n];
-		if (intSize == speco.integer.IntegerUtil.INTEGER_SIZE) {
+		if (intSize == speco.integer.IntUtil.INTEGER_SIZE) {
 			for (int i = 0; i < n; i++) {
-				if (useGray) { intVal[i] = speco.integer.IntegerUtil.grayToBinary(a.getData()[i]);
+				if (useGray) { intVal[i] = speco.integer.IntUtil.grayToBinary(a.getData()[i]);
 				} else { intVal[i] = a.getData()[i]; }
 			}
 		} else {
@@ -45,8 +45,8 @@ public class BitUtil {
 	public static byte[] getByteArray(BitArray a) {
 		int byteSize = 8;
 		int maxByte = 255;
-		int pack = speco.integer.IntegerUtil.INTEGER_SIZE / byteSize;
-		int nInt = (a.size() + speco.integer.IntegerUtil.INTEGER_SIZE - 1) / speco.integer.IntegerUtil.INTEGER_SIZE;
+		int pack = speco.integer.IntUtil.INTEGER_SIZE / byteSize;
+		int nInt = (a.size() + speco.integer.IntUtil.INTEGER_SIZE - 1) / speco.integer.IntUtil.INTEGER_SIZE;
 		int n = pack * nInt;
 		byte[] byteArray = new byte[n];
 		int k = 0;
@@ -67,7 +67,7 @@ public class BitUtil {
 	 * @return array of int values
 	 */
 	public static int[] getIntArray(BitArray a) {
-		return getIntArray(a, speco.integer.IntegerUtil.INTEGER_SIZE, useGrayCode);
+		return getIntArray(a, speco.integer.IntUtil.INTEGER_SIZE, useGrayCode);
 	}
 
 	/**
@@ -79,14 +79,14 @@ public class BitUtil {
 	 */
 	public static void setIntArray(BitArray a, int[] intVal, int intSize, boolean useGray) {
 		int n = intVal.length;
-		if (intSize == speco.integer.IntegerUtil.INTEGER_SIZE) {
+		if (intSize == speco.integer.IntUtil.INTEGER_SIZE) {
 			if (a.getData().length < n) a.setData(new int[n]);
 			for (int i = 0; i < n; i++) {
-				if (useGray) a.getData()[i] = speco.integer.IntegerUtil.binaryToGray(intVal[i]);
+				if (useGray) a.getData()[i] = speco.integer.IntUtil.binaryToGray(intVal[i]);
 				else  a.getData()[i] = intVal[i];
 			}
 		} else {
-			n = (n * intSize) / speco.integer.IntegerUtil.INTEGER_SIZE + 1;
+			n = (n * intSize) / speco.integer.IntUtil.INTEGER_SIZE + 1;
 			a.setData(new int[n]);
 			int start = 0;
 			for (int i = 0; i < n; i++) {
@@ -105,7 +105,7 @@ public class BitUtil {
 	 */
 	public static int getNumber(BitArray a, int start, int length) {
 		BitArray b = a.subArray(start, start + length);
-		return (b.getInt(0) >>> (speco.integer.IntegerUtil.INTEGER_SIZE - length));
+		return (b.getInt(0) >>> (speco.integer.IntUtil.INTEGER_SIZE - length));
 	}
 
 	/**

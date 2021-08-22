@@ -45,7 +45,7 @@ package speco.integer;
  * for example, for accessing the bit representation of an int.</p>
  *
  */
-public class IntegerUtil {
+public class IntUtil {
 	/**
 	 * The minimum integer that can be represented
 	 */

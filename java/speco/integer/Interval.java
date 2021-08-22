@@ -48,7 +48,7 @@ import speco.set.Set;
  * <p>Description: An [start,end) close-open interval of integer numbers.</p>
  *
  */
-public class IntegerInterval implements Set<Integer,Integer>{
+public class Interval implements Set<Integer,Integer>{
 	/**
 	 * Left side of the interval
 	 */
@@ -63,14 +63,14 @@ public class IntegerInterval implements Set<Integer,Integer>{
 	 * Creates the [0,end) interval
 	 * @param end Right side of the interval (must be equal to or higher than 0)
 	 */
-	public IntegerInterval( int end ) { this.end = end; }
+	public Interval( int end ) { this.end = end; }
     
 	/**
 	 * Creates the [start,end) interval (start &lt;= end)
 	 * @param start Left side of the interval
 	 * @param end Right side of the interval
 	 */
-	public IntegerInterval( int start, int end ) {
+	public Interval( int start, int end ) {
 		this.start = start;
 		this.end = end;	
 	}
