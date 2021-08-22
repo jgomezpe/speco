@@ -45,79 +45,77 @@ package speco.array;
  *
  */
 public interface Resizer {
-    /**
-     * Restart the array size manager
-     * @return A new created buffer for the Array 
-     */
-    default Object clear() { return init(0); }
+	/**
+	 * Restart the array size manager
+	 * @return A new created buffer for the Array 
+	 */
+	default Object clear() { return init(0); }
     
-    /**
-     * Gets the size of elements of the Array
-     * @return Size of the Array
-     */
-    int size();
+	/**
+	 * Gets the size of elements of the Array
+	 * @return Size of the Array
+	 */
+	int size();
     
-    /**
-     * Gets the size of the buffer of the Array
-     * @return Size of the buffer of the Array
-     */
-    int buffer_size();
+	/**
+	 * Gets the size of the buffer of the Array
+	 * @return Size of the buffer of the Array
+	 */
+	int buffer_size();
     
-    /**
-     * Initializes an Array Size manager to the given size of the Array
-     * @param n Size of the array
-     * @return Inner Array's buffer
-     */
-    default Object init(int n) { return init(Object.class,n); }
+	/**
+	 * Initializes an Array Size manager to the given size of the Array
+	 * @param n Size of the array
+	 * @return Inner Array's buffer
+	 */
+	default Object init(int n) { return init(Object.class,n); }
     
-    /**
-     * Initializes an Array Size manager to the given size of the Array
-     * @param cl Class of the Array's elements
-     * @param n Size of the array
-     * @return Inner Array's buffer
-     */
-    Object init(Class<?> cl, int n);
+	/**
+	 * Initializes an Array Size manager to the given size of the Array
+	 * @param cl Class of the Array's elements
+	 * @param n Size of the array
+	 * @return Inner Array's buffer
+	 */
+	Object init(Class<?> cl, int n);
     
-    /**
-     * Adds a new component to the Array's buffer (resizes it if required)
-     * @param buffer Current Array's buffer
-     * @return A new buffer for the Array if required. The same buffer otherwise
-     */
-    Object add(Object buffer);
+	/**
+	 * Adds a new component to the Array's buffer (resizes it if required)
+	 * @param buffer Current Array's buffer
+	 * @return A new buffer for the Array if required. The same buffer otherwise
+	 */
+	Object add(Object buffer);
+       
+	/**
+	 * Removes a component from the Array's buffer (resizes it if required)
+	 * @param buffer Current Array's buffer
+	 * @return A new buffer for the Array if required. The same buffer otherwise
+	 */
+	Object del(Object buffer);
     
-    
-    /**
-     * Removes a component from the Array's buffer (resizes it if required)
-     * @param buffer Current Array's buffer
-     * @return A new buffer for the Array if required. The same buffer otherwise
-     */
-    Object del(Object buffer);
-    
-    /**
-     * Creates a buffer of the current buffer size  
-     * @return A buffer of elements with the same size of the Array's buffer
-     */
-    default Object alloc() { return alloc(Object.class); }
+	/**
+	 * Creates a buffer of the current buffer size  
+	 * @return A buffer of elements with the same size of the Array's buffer
+	 */
+	default Object alloc() { return alloc(Object.class); }
 
-    /**
-     * Creates a buffer of the current buffer size  
-     * @param cl Class of the Array's elements
-     * @return A buffer of elements with the same size of the Array's buffer
-     */
-    default Object alloc(Class<?> cl) {
-	return java.lang.reflect.Array.newInstance(cl,buffer_size());
-    }
+	/**
+	 * Creates a buffer of the current buffer size  
+	 * @param cl Class of the Array's elements
+	 * @return A buffer of elements with the same size of the Array's buffer
+	 */
+	default Object alloc(Class<?> cl) {
+		return java.lang.reflect.Array.newInstance(cl,buffer_size());
+	}
 
-    /**
-     * Creates a shallow copy of the first <i>n</i> elements of the Array's buffer 
-     * @param buffer Current Array's buffer
-     * @param n Number of elements to copy
-     * @return A buffer of the current Array's buffer with a shallow copy of the first <i>n</i> elements in the Array's buffer
-     */
-    default Object copy(Object buffer, int n) {
-	Object nbuffer = alloc(buffer.getClass().getComponentType());
-	System.arraycopy(buffer, 0, nbuffer, 0, n);
-	return nbuffer;
-    }
-
+	/**
+	 * Creates a shallow copy of the first <i>n</i> elements of the Array's buffer 
+	 * @param buffer Current Array's buffer
+	 * @param n Number of elements to copy
+	 * @return A buffer of the current Array's buffer with a shallow copy of the first <i>n</i> elements in the Array's buffer
+	 */
+	default Object copy(Object buffer, int n) {
+		Object nbuffer = alloc(buffer.getClass().getComponentType());
+		System.arraycopy(buffer, 0, nbuffer, 0, n);
+		return nbuffer;
+	}
 }

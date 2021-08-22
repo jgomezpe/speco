@@ -41,15 +41,31 @@ package speco.pair;
 import kompari.Order;
 
 /**
- * <p>Title: KeyOrder</p>
+ * <p>Title: PairBOrder</p>
  *
  * <p>Description: An order for Pair objects that considers the key ('a': the first element in the pair) as sorting element</p>
+ * @param <A> First component type
+ * @param <B> Second component type
  *
  */
 public class PairBOrder<A,B>  implements Order<Pair<A,B>>{
+	/**
+	 * Second component's order
+	 */
 	protected Order<B> order;
 	
-	public PairBOrder( Order<B> keys_order ){ this.order = keys_order; }
+	/**
+	 * Creates a Pair order using the provided second component's order
+	 * @param b_order Second component's order
+	 */
+	public PairBOrder( Order<B> b_order ){ this.order = b_order; }
 	
+	/**
+	 * Compares two pairs
+	 * @param x First pair
+	 * @param y Second pair
+	 * @return A value less than 0 indicates that <i>x</i> is less than <i>y</i>, a value equal to 0 indicates
+	 * that <i>x</i> is equal to <i>y</i> and a value greater than 0 indicates that <i>x</i> is greater than <i>y</i>
+	 */
 	public int compare(Pair<A,B> x, Pair<A,B> y){ return order.compare(x.b(), y.b()); }
 }

@@ -1,9 +1,5 @@
-//
-//Unalcol Service structure Pack 1.0 by Jonatan Gomez-Perdomo
-//https://github.com/jgomezpe/unalcol/tree/master/services/
-//
 /**
- * <p>An object with two components.</p>
+ * <p>Pair: An object with two components.</p>
  *
  * <p>Copyright: Copyright (c) 2019</p>
  *

@@ -1,7 +1,3 @@
-//
-//Unalcol Service structure Pack 1.0 by Jonatan Gomez-Perdomo
-//https://github.com/jgomezpe/unalcol/tree/master/services/
-//
 /**
  * <p>Function definitions and methods.</p>
  *

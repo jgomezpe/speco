@@ -36,51 +36,113 @@
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
-package speco.set;
+package speco.integer;
 
-import speco.Collection;
+import java.util.Iterator;
+
+import speco.set.Set;
 
 /**
- * <p>Title: Set</p>
+ * <p>Title: Interval</p>
  *
- * <p>Description: A set allowing a single copy of an element. Provide access to elements using an index/key.</p>
- * @param <V> Type of elements stored by the Set
- * @param <K> Type of indices for accessing elements in the Set
+ * <p>Description: An [start,end) close-open interval of integer numbers.</p>
  *
  */
-public interface Set<K,V> extends Collection<V>{
+public class IntegerInterval implements Set<Integer,Integer>{
 	/**
-	 * Determines if the given object belongs to the set.
-	 * @param data Data object to analyze.
-	 * @return <i>true</i>If the object belongs to the set, <i>false</i> otherwise.
+	 * Left side of the interval
 	 */
-	default boolean contains( V data ) { return index(data)!=null; } 
+	protected int start = 0;
     
+	/** 
+	 * Right side (not included) of the interval
+	 */
+	protected int end = 0;
+    
+	/**
+	 * Creates the [0,end) interval
+	 * @param end Right side of the interval (must be equal to or higher than 0)
+	 */
+	public IntegerInterval( int end ) { this.end = end; }
+    
+	/**
+	 * Creates the [start,end) interval (start &lt;= end)
+	 * @param start Left side of the interval
+	 * @param end Right side of the interval
+	 */
+	public IntegerInterval( int start, int end ) {
+		this.start = start;
+		this.end = end;	
+	}
+	
+	/**
+	 * Gets the left side of the interval
+	 * @return Left side of the interval
+	 */
+	public int inf() { return start; }
+	
+	/**
+	 * Gets the right side of the interval
+	 * @return Right side of the interval
+	 */
+	public int sup(){ return end; }
+
+	/**
+	 * Gets an iterable version of the set
+	 * @return An iterable version of the set
+	 */
+	@Override
+	public Iterator<Integer> iterator() {
+		return new Iterator<Integer>() {
+			protected int pos = start;
+			@Override
+			public boolean hasNext(){ return pos < end; }
+			@Override
+			public Integer next() {	return pos++; }
+		};
+	}
+	
+	/**
+	 * Gets the number of elements in the set
+	 * @return Number of elements in the set
+	 */
+	@Override
+	public int size() { return end-start; }
+	
 	/**
 	 * Finds the associated index (key) of the given object.
 	 * @param data Object from which an associated index will be returned.
 	 * @return The associated index of the object, <i>null</i> otherwise.
 	 */
-	K index(V data);
-    
+	@Override
+	public Integer index(Integer data) { return (start<=data && data<end)?data:null; }
+	    
 	/**
 	 * Gets the data element with the provided index 
 	 * @param index Index associated to the element to get
 	 * @return Data element that has associated the given index
 	 */
-	V get(K index);
-    
+	@Override
+	public Integer get(Integer index) { return index(index); }
+	    
 	/**
 	 * Adds a data element to the set
 	 * @param data Data element to be inserted
 	 * @return <i>true</i> if the element could be added, <i>false</i> otherwise
 	 */
-	boolean add(V data);
+	@Override
+	public boolean add(Integer data) { return false; }
 
 	/**
 	 * Removes the given data from the set 
 	 * @param data Object to be removed from the set
 	 * @return <i>true</i> if the element was in the set and it could be removed, <i>false</i> otherwise
 	 */
-	boolean remove(V data);   
+	public boolean remove(Integer data) { return false; }
+    
+	/**	
+	 * Reset the interval to initial values (does nothing)
+	 */
+	@Override
+	public void clear(){}
 }

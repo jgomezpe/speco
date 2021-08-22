@@ -44,83 +44,93 @@ import java.util.Iterator;
  * <p>Title: List</p>
  *
  * <p>Description: A list of objects</p>
+ * @param <T> Type of elements stored by the List
  *
  */
 public class List<T> implements Iterable<T>{
-    protected int size = 0;
-    protected Node<T> head = null;
-    protected Node<T> last = null;
+	/**
+	 * Size of the list
+	 */
+	protected int size = 0;
+	
+	/**
+	 * Head node
+	 */
+	protected Node<T> head = null;
+	
+	/**
+	 * Last node
+	 */
+	protected Node<T> last = null;
 
-    public List(){}
+	/**
+	 * Creates an empty list
+	 */
+	public List(){}
 
-    /**
-     * Removes all the objects in the data structure
-     */
-    public void clear(){
-        head = null;
-        last = null;
-        size = 0;
-    }
+	/**
+	 * Removes all the objects in the data structure
+	 */
+	public void clear(){
+		head = null;
+		last = null;
+		size = 0;
+	}
 
-    /**
-     * Determines if the collection is empty or not
-     * @return <i>true</i> if the collection is empty <i>false</i> otherwise
-     */
-    public boolean isEmpty() { return size()==0; };     
+	/**
+	 * Determines if the collection is empty or not
+	 * @return <i>true</i> if the collection is empty <i>false</i> otherwise
+	 */
+	public boolean isEmpty() { return size()==0; };     
 
-    /**
-     * Determines the number of objects stored by the data structure
-     * @return Number of objects stored by the data structure
-     */
-    public int size(){ return size; }
+	/**
+	 * Determines the number of objects stored by the data structure
+	 * @return Number of objects stored by the data structure
+	 */
+	public int size(){ return size; }
 
-    /**
-     * Obtains an iterator of the objects in the list
-     * @return Iterator of the objects in the list
-     */
-    @Override
-    public Iterator<T> iterator(){ return new ListIterator<T>( head ); }
+	/**
+	 * Obtains an iterator of the objects in the list
+	 * @return Iterator of the objects in the list
+	 */
+	@Override
+	public Iterator<T> iterator(){ return new ListIterator<T>( head ); }
 
+	/**
+	 * Inserts a data element in the structure
+	 * @param data Data element to be inserted
+	 * @return <i>true</i> if the element could be added, <i>false</i> otherwise
+	 */
+	public boolean add(T data) {
+		Node<T> aux = new Node<>(data);
+		if (head == null) head = aux;
+		else last.next = aux;
+		last = aux;
+		size++;
+		return true;
+	}
 
-    /**
-     * Inserts a data element in the structure
-     * @param data Data element to be inserted
-     * @return <i>true</i> if the element could be added, <i>false</i> otherwise
-     */
-    public boolean add(T data) {
-        Node<T> aux = new Node<>(data);
-        if (head == null) {
-            head = aux;
-        } else {
-            last.next = aux;
-        }
-        last = aux;
-        size++;
-        return true;
-    }
+	/**
+	 * Removes the element indicated by the locator
+	 * @param locator The location information of the object to be deleted
+	 * @return <i>true</i> if the element could be removed, <i>false</i> otherwise
+	 */
+	protected boolean remove( Node<T> node ){
+		boolean flag = (node != null);
+		if( flag ){
+			size--;
+			if( node.prev != null ) node.prev.next = node.next;
+			else head = node.next;
 
-    /**
-     * Removes the element indicated by the locator
-     * @param locator The location information of the object to be deleted
-     * @return <i>true</i> if the element could be removed, <i>false</i> otherwise
-     */
-    protected boolean remove( Node<T> node ){
-        boolean flag = (node != null);
-        if( flag ){
-            size--;
-            if( node.prev != null ){
-                node.prev.next = node.next;
-            }else{
-                head = node.next;
-            }
-            if( node.next != null ){
-                node.next.prev = node.prev;
-            }else{
-                last = node.prev;
-            }
-        }
-        return flag;
-    }
+			if( node.next != null ) node.next.prev = node.prev;
+			else last = node.prev;
+		}
+		return flag;
+	}
 
-    public T get(){ return head.data; }
+	/**
+	 * Gets the first element in the list (data in the head node)
+	 * @return First element in the list
+	 */
+	public T get(){ return head.data; }
 }

@@ -1,1 +1,0 @@
-package speco.bit.array;

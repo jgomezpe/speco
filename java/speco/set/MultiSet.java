@@ -46,63 +46,63 @@ import speco.Collection;
  * <p>Title: MultiSet</p>
  *
  * <p>Description: A set allowing multiple copies of an element. Provide access to elements using an index/key.</p>
- *
+ * @param <V> Type of elements stored by the MultiSet
+ * @param <K> Type of indices for accessing elements in the MultiSet
  */
 public interface MultiSet<K,V> extends Collection<V>{
-    /**
-     * Determines if the given object belongs to the associated collection.
-     * @param data Data object to be located.
-     * @return <i>true</i>If the object belongs to the associated collection, <i>false</i> otherwise.
-     */
-    default boolean contains( V data ) { return first(data)!=null; } 
+	/**
+	 * Determines if the given object belongs to the associated collection.
+	 * @param data Data object to be located.
+	 * @return <i>true</i>If the object belongs to the associated collection, <i>false</i> otherwise.
+	 */
+	default boolean contains( V data ) { return first(data)!=null; } 
     
-    /**
-     * Gets the associated index (key) of the first appearance (in some order) of the given object.
-     * @param data Object from which an associated index will be returned.
-     * @return The associated index of the first appearance of the object, <i>null</i> otherwise.
-     */
-    K first(V data);
+	/**
+	 * Gets the associated index (key) of the first appearance (in some order) of the given object.
+	 * @param data Object from which an associated index will be returned.
+	 * @return The associated index of the first appearance of the object, <i>null</i> otherwise.
+	 */
+	K first(V data);
 
-    /**
-     * Gets the associated index (key) of the last appearance (in some order) of the given object.
-     * @param data Object from which an associated index will be returned.
-     * @return The associated index of the last appearance of the object, <i>null</i> otherwise.
-     */
-    K last(V data);
+	/**
+	 * Gets the associated index (key) of the last appearance (in some order) of the given object.
+	 * @param data Object from which an associated index will be returned.
+	 * @return The associated index of the last appearance of the object, <i>null</i> otherwise.
+	 */
+	K last(V data);
 
-    /**
-     * Gets an iterable version of the collection of indices associated to a given object
-     * @param data Object from which associated indices will be returned.
-     * @return An iterable version of the collection of indices associated to a given object
-     */
-    Iterator<K> get(V data);
+	/**
+	 * Gets an iterable version of the collection of indices associated to a given object
+	 * @param data Object from which associated indices will be returned.
+	 * @return An iterable version of the collection of indices associated to a given object
+	 */
+	Iterator<K> get(V data);
     
-    /**
-     * Adds a data element to the set
-     * @param data Data element to be inserted
-     * @return <i>true</i> if the element could be added, <i>false</i> otherwise
-     */
-    boolean add(V data);
+	/**
+	 * Adds a data element to the set
+	 * @param data Data element to be inserted
+	 * @return <i>true</i> if the element could be added, <i>false</i> otherwise
+	 */
+	boolean add(V data);
 
-    /**
-     * Removes completely (all copies) the given data from the associated collection 
-     * @param data Object to be removed from the associated collection
-     * @return <i>true</i> if the element was in the multiset and could be (completely) removed, <i>false</i> otherwise
-     */
-    boolean remove(V data);
+	/**
+	 * Removes completely (all copies) the given data from the associated collection 
+	 * @param data Object to be removed from the associated collection
+	 * @return <i>true</i> if the element was in the multiset and could be (completely) removed, <i>false</i> otherwise
+	 */
+	boolean remove(V data);
 
-    /**
-     * Removes the first appearance (inside the set)  the given data from the associated collection 
-     * @param data Object to be removed from the associated collection
-     * @return <i>true</i> if the element was in the multiset and could be removed, <i>false</i> otherwise
-     */
-    boolean removeFirst(V data);
+	/**
+	 * Removes the first appearance (inside the set)  the given data from the associated collection 
+	 * @param data Object to be removed from the associated collection
+	 * @return <i>true</i> if the element was in the multiset and could be removed, <i>false</i> otherwise
+	 */
+	boolean removeFirst(V data);
 
-    /**
-     * Removes the last appearance (inside the set)  the given data from the associated collection 
-     * @param data Object to be removed from the associated collection
-     * @return <i>true</i> if the element was in the multiset and could be removed, <i>false</i> otherwise
-     */
-    boolean removeLast(V data);
-
+	/**
+	 * Removes the last appearance (inside the set)  the given data from the associated collection 
+	 * @param data Object to be removed from the associated collection
+	 * @return <i>true</i> if the element was in the multiset and could be removed, <i>false</i> otherwise
+	 */
+	boolean removeLast(V data);
 }

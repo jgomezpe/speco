@@ -43,144 +43,150 @@ import java.util.Iterator;
 import kompari.Comparator;
 import speco.set.MultiSet;
 
+/**
+ * <p>Title: ArrayMultiSet</p>
+ *
+ * <p>Description: A multi-set implementation using arrays.</p>
+ * @param <T> Type of elements stored by the ArrayMultiSet
+ *
+ */
 public class ArrayMultiSet<T> implements MultiSet<Integer, T> {
-    /**
-     * Array maintaining the set elements 
-     */
-    protected Array<T> array;
+	/**
+	 * Array maintaining the set elements 
+	 */
+	protected Array<T> array;
     
-    /**
-     * Creates a set using an Array for maintaining the elements  
-     */
-    public ArrayMultiSet() { this.array=new Array<T>(); }
+	/**
+	 * Creates a set using an Array for maintaining the elements  
+	 */
+	public ArrayMultiSet() { this.array=new Array<T>(); }
  
-    /**
-     * Creates a set using the Array for maintaining the elements
-     * @param array Array maintaining the elements
-     */
-    public ArrayMultiSet( Array<T> array ) { this.array=array; }
+	/**
+	 * Creates a set using the Array for maintaining the elements
+	 * @param array Array maintaining the elements
+	 */
+	public ArrayMultiSet( Array<T> array ) { this.array=array; }
 
-
-    /**
-     * Gets the associated index (key) of the first appearance (in some order) of the given object.
-     * @param data Object from which an associated index will be returned.
-     * @return The associated index of the first appearance of the object, <i>null</i> otherwise.
-     */
-    @Override
-    public Integer first(T data) {
-	int i=0;
-	while( i<array.size() && Comparator.NE(data, array.get(i))) i++;
-	if( i<array.size() ) return i;
-	return null;
-    }
-
-    /**
-     * Gets the associated index (key) of the first appearance (in some order) of the given object.
-     * @param data Object from which an associated index will be returned.
-     * @return The associated index of the first appearance of the object, <i>null</i> otherwise.
-     */
-    @Override
-    public Integer last(T data) {
-	int i=array.size()-1;
-	while( i>=0 && Comparator.NE(data, array.get(i))) i--;
-	if( i>=0 ) return i;
-	return null;
-    }
-    /**
-     * Gets an iterable version of the collection of indices associated to a given object
-     * @param data Object from which associated indices will be returned.
-     * @return An iterable version of the collection of indices associated to a given object
-     */
-    @Override
-    public Iterator<Integer> get(T data) {
-	return new Iterator<Integer>() {
-	    protected int pos=0;
-	    @Override
-	    public boolean hasNext() {
-		while(pos<array.size() && Comparator.NE(data, array.get(pos))) pos++;
-		return pos<array.size();
-	    }
-
-	    @Override
-	    public Integer next() {
-		if(pos<array.size()) return pos++;
+	/**
+	 * Gets the associated index (key) of the first appearance (in some order) of the given object.
+	 * @param data Object from which an associated index will be returned.
+	 * @return The associated index of the first appearance of the object, <i>null</i> otherwise.
+	 */
+	@Override
+	public Integer first(T data) {
+		int i=0;
+		while( i<array.size() && Comparator.NE(data, array.get(i))) i++;
+		if( i<array.size() ) return i;
 		return null;
-	    } 
-	};
-    }
-
-    /**
-     * Adds a data element to the set
-     * @param data Data element to be inserted
-     * @return <i>true</i> if the element could be added, <i>false</i> otherwise
-     */
-    @Override
-    public boolean add(T data) { return array.add(data); }
-    
-    /**
-     * Removes completely (all copies) the given data from the associated collection 
-     * @param data Object to be removed from the associated collection
-     * @return <i>true</i> if the element was in the multiset and could be (completely) removed, <i>false</i> otherwise
-     */
-    @Override
-    public boolean remove(T data) {
-	int s = array.size();
-	int pos = 0;
-	while(pos<array.size()) {
-	    if( Comparator.EQ(data, array.get(pos)) ) array.remove(pos);
-	    else pos++;
 	}
-	return s>array.size();
-    } 
-    
-    /**
-     * Removes the first appearance (inside the set)  the given data from the associated collection 
-     * @param data Object to be removed from the associated collection
-     * @return <i>true</i> if the element was in the multiset and could be removed, <i>false</i> otherwise
-     */
-    @Override
-    public boolean removeFirst(T data) {
-	Integer pos = first(data);
-	if(pos != null) {
-	    array.remove(pos);
-	    return true;
-	}
-	return false;
-    }
 
-    /**
-     * Removes the last appearance (inside the set)  the given data from the associated collection 
-     * @param data Object to be removed from the associated collection
-     * @return <i>true</i> if the element was in the multiset and could be removed, <i>false</i> otherwise
-     */
-    @Override
-    public boolean removeLast(T data) {
-	Integer pos = last(data);
-	if(pos != null) {
-	    array.remove(pos);
-	    return true;
+	/**
+	 * Gets the associated index (key) of the first appearance (in some order) of the given object.
+	 * @param data Object from which an associated index will be returned.
+	 * @return The associated index of the first appearance of the object, <i>null</i> otherwise.
+	 */
+	@Override
+	public Integer last(T data) {
+		int i=array.size()-1;
+		while( i>=0 && Comparator.NE(data, array.get(i))) i--;
+		if( i>=0 ) return i;
+		return null;
 	}
-	return false;
-    }
+	
+	/**
+	 * Gets an iterable version of the collection of indices associated to a given object
+	 * @param data Object from which associated indices will be returned.
+	 * @return An iterable version of the collection of indices associated to a given object
+	 */
+	@Override
+	public Iterator<Integer> get(T data) {
+		return new Iterator<Integer>() {
+			protected int pos=0;
+			@Override
+			public boolean hasNext() {
+				while(pos<array.size() && Comparator.NE(data, array.get(pos))) pos++;
+				return pos<array.size();
+			}
 
-    /**
-     * Gets an iterable version of the set
-     * @return An iterable version of the set
-     */
-    @Override
-    public Iterator<T> iterator() { return array.iterator(); }
+			@Override
+			public Integer next() {
+				if(pos<array.size()) return pos++;
+				return null;
+			} 
+		};
+	}
+
+	/**
+	 * Adds a data element to the set
+	 * @param data Data element to be inserted
+	 * @return <i>true</i> if the element could be added, <i>false</i> otherwise
+	 */
+	@Override
+	public boolean add(T data) { return array.add(data); }
     
-    /**
-     * Determines the number of objects stored by the array
-     * @return Number of objects stored by the array.
-     */
-     @Override
-     public int size() { return array.size(); }
+	/**
+	 * Removes completely (all copies) the given data from the associated collection 
+	 * @param data Object to be removed from the associated collection
+	 * @return <i>true</i> if the element was in the multiset and could be (completely) removed, <i>false</i> otherwise
+	 */
+	@Override
+	public boolean remove(T data) {
+		int s = array.size();
+		int pos = 0;
+		while(pos<array.size()) {
+			if( Comparator.EQ(data, array.get(pos)) ) array.remove(pos);
+			else pos++;
+		}
+		return s>array.size();
+	} 
+    
+	/**
+	 * Removes the first appearance (inside the set)  the given data from the associated collection 
+	 * @param data Object to be removed from the associated collection
+	 * @return <i>true</i> if the element was in the multiset and could be removed, <i>false</i> otherwise
+	 */
+	@Override
+	public boolean removeFirst(T data) {
+		Integer pos = first(data);
+		if(pos != null) {
+			array.remove(pos);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Removes the last appearance (inside the set)  the given data from the associated collection 
+	 * @param data Object to be removed from the associated collection
+	 * @return <i>true</i> if the element was in the multiset and could be removed, <i>false</i> otherwise
+	 */
+	@Override
+	public boolean removeLast(T data) {
+		Integer pos = last(data);
+		if(pos != null) {
+			array.remove(pos);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Gets an iterable version of the set
+	 * @return An iterable version of the set
+	 */
+	@Override
+	public Iterator<T> iterator() { return array.iterator(); }
+    
+	/**
+	 * Determines the number of objects stored by the array
+	 * @return Number of objects stored by the array.
+	 */
+	@Override
+	public int size() { return array.size(); }
      
-    /**	
-     * Reset the array to initial values (including the buffer size)
-     */
-    @Override
-    public void clear(){ array.clear(); }
-
+	/**	
+	 * Reset the array to initial values (including the buffer size)
+	 */
+	@Override
+	public void clear(){ array.clear(); }
 }

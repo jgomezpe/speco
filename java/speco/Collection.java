@@ -1,4 +1,3 @@
-package speco;
 /**
  * <p>Copyright: Copyright (c) 2019</p>
  *
@@ -37,28 +36,30 @@ package speco;
  * (E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A> )
  * @version 1.0
  */
+package speco;
 
 /**
  * <p>Title: Collection</p>
  *
  * <p>Description: A collection of elements.</p>
+ * @param <T> Type of elements stored by the Collection
  *
  */
 public interface Collection<T> extends Iterable<T>{
-    /**
-     * Removes all element from the collection 
-     */
-    void clear();
+	/**
+	 * Removes all element from the collection 
+	 */
+	void clear();
     
-    /**
-     * Determines if the collection is empty or not
-     * @return <i>true</i> If the collection is empty, <i>false</i> otherwise.
-     */
-    default boolean isEmpty() { return size()==0; };
+	/**
+	 * Determines if the collection is empty or not
+	 * @return <i>true</i> If the collection is empty, <i>false</i> otherwise.
+	 */
+	default boolean isEmpty() { return size()==0; };
     
-    /**
-     * Gets the number of elements in the collection
-     * @return Number of elements in the collection
-     */
-    int size();
+	/**
+	 * Gets the number of elements in the collection
+	 * @return Number of elements in the collection
+	 */
+	int size();
 }

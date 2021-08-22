@@ -44,47 +44,51 @@ import java.util.NoSuchElementException;
  * <p>Title: ListIterator</p>
  *
  * <p>Description: A List Iterator</p>
- *
- * <p>Copyright: Copyright (c) 2009</p>
- *
- * <p>Company: Kunsamu</p>
- *
- * @author Jonatan Gomez Perdomo
- * @version 1.0
+ * @param <T> Type of elements stored by the List
  */
 class ListIterator<T> implements Iterator<T>{
+	/**
+	 * Iterator node
+	 */
+	protected Node<T> node;
 
-    protected Node<T> node;
+	/**
+	 * Creates an iterator starting at the given list node
+	 * @param node List node for starting the iterator
+	 */
+	public ListIterator( Node<T> node ){
+		this.node = new Node<T>();
+		this.node.next = node;
+	}
 
-    public ListIterator( Node<T> node ){
-        this.node = new Node<T>();
-        this.node.next = node;
-    }
+	/**
+	 * Determines if there is a new element in the iterator
+	 * @return <i>true</i> If there is a new element in the list, <i>false</i> otherwise
+	 */
+	@Override
+	public boolean hasNext(){ return (node.next!=null); }
 
-    @Override
-    public boolean hasNext(){
-        return (node.next!=null);
-    }
+	/**
+	 * Gets the next element in the list
+	 * @return Next element in the list
+	 */
+	@Override
+	public T next()  throws NoSuchElementException{
+		try{
+			node = node.next;
+			return node.data;
+		}catch( Exception e ){ throw new NoSuchElementException(); }
+	}
 
-    @Override
-    public T next()  throws NoSuchElementException{
-        try{
-            node = node.next;
-            return node.data;
-        }catch( Exception e ){
-            throw new NoSuchElementException();
-        }
-    }
+	/**
+	 * Removes the element in the current position of the iterator
+	 */
+	@Override
+	public void remove() {
+		if( node != null ){
+			if( node.prev != null ) node.prev.next = node.next;
 
-    @Override
-    public void remove() {
-        if( node != null ){
-            if( node.prev != null ){
-                node.prev.next = node.next;
-            }
-            if( node.next != null ){
-                node.next.prev = node.prev;
-            }
-        }    
-    }    
+			if( node.next != null ) node.next.prev = node.prev;
+		}    
+	}    
 }

@@ -42,56 +42,58 @@ package speco.pair;
  * <p>Title: Pair</p>
  *
  * <p>Description: A pair of two objects</p>
+ * @param <A> First component type
+ * @param <B> Second component type
  *
  */
 public class Pair<A,B> implements Cloneable{
-    /**
-     * First component of the pair
-     */
-    protected A a;
+	/**
+	 * First component of the pair
+	 */
+	protected A a;
     
-    /**
-     * Second component of the pair
-     */
-    protected B b;
+	/**
+	 * Second component of the pair
+	 */
+	protected B b;
 
-    /**
-     * Creates a pair
-     * @param a First component of the pair
-     * @param b Second component of the pair
-     */
-    public Pair(A a, B b){
-	this.a = a;
-	this.b = b;
-    }
+	/**
+	 * Creates a pair
+	 * @param a First component of the pair
+	 * @param b Second component of the pair
+	 */
+	public Pair(A a, B b){
+		this.a = a;
+		this.b = b;
+	}
 
-    /**
-     * Gets the first component of the pair
-     * @return First component of the pair
-     */
-    public A a(){ return a; }
+	/**
+	 * Gets the first component of the pair
+	 * @return First component of the pair
+	 */
+	public A a(){ return a; }
     
-    /**
-     * Gets the second component of the pair
-     * @return Second component of the pair
-     */    
-    public B b(){ return b; }
+	/**
+	 * Gets the second component of the pair
+	 * @return Second component of the pair
+	 */    
+	public B b(){ return b; }
 
-    /**
-     * Sets the first component of the pair
-     * @param a First component of the pair
-     */
-    public void a( A a ){ this.a = a; }
-    
-    /**
-     * Sets the second component of the pair
-     * @param b Second component of the pair
-     */
-    public void b( B b ){ this.b = b; }
+	/**
+	 * Sets the first component of the pair
+	 * @param a First component of the pair
+	 */
+	public void a( A a ){ this.a = a; }
 
-    /**
-     * Creates a string version of the pair
-     * @return A string version of the pair
-     */
-    public String toString(){ return a.toString()+","+b.toString(); }
+	/**
+	 * Sets the second component of the pair
+	 * @param b Second component of the pair
+	 */
+	public void b( B b ){ this.b = b; }
+
+	/**
+	 * Creates a string version of the pair
+	 * @return A string version of the pair
+	 */
+	public String toString(){ return a.toString()+","+b.toString(); }
 }
