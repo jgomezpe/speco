@@ -9,7 +9,7 @@ Java data structure collection for the numtseng infrastructure.
 
 &nbsp;Source code: <A HREF="https://github.com/jgomezpe/speco/">https://github.com/jgomezpe/speco/</A>
 
-&nbsp;API documentation: <A HREF="https://numtseng.com/api/speco/">https://numtseng.com/api/speco/</A>
+&nbsp;API documentation: <A HREF="https://numtseng.com/api/java/speco/">https://numtseng.com/api/java/speco/</A>
 
 &nbsp;All rights reserved.
 
