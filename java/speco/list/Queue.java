@@ -39,9 +39,7 @@
 package speco.list;
 
 /**
- * <p>Title: Queue</p>
- *
- * <p>Description: A queue </p>
+ * <p>A queue </p>
  * @param <T> Type of elements stored by the Queue
  *
  */

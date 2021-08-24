@@ -45,9 +45,7 @@ import kopii.Copyable;
 import speco.Collection;
 
 /**
- * <p>Title: Array</p>
- *
- * <p>Description: An array of objects (parameterized).</p>
+ * <p>An array of objects (parameterized).</p>
  * @param <T> Type of elements stored by the array
  *
  */

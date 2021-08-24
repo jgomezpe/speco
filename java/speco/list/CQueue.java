@@ -41,8 +41,7 @@ package speco.list;
 import java.util.Iterator;
 
 /**
- * <p>Title: CQueue</p>
- * <p>Description: A circular queue.</p>
+ * <p>A circular queue.</p>
  * @param <T> Type of elements stored by the circular queue
  */
 public class CQueue<T> implements Iterable<T>{

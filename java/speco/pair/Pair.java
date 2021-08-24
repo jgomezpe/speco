@@ -39,9 +39,7 @@
 package speco.pair;
 
 /**
- * <p>Title: Pair</p>
- *
- * <p>Description: A pair of two objects</p>
+ * <p>A pair of two objects</p>
  * @param <A> First component type
  * @param <B> Second component type
  *

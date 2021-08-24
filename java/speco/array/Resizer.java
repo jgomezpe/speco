@@ -39,9 +39,7 @@
 package speco.array;
 
 /**
- * <p>Title: Resizer</p>
- *
- * <p>Description: An array resizer. Controls the underline buffer of an array.</p>
+ * An array resizer. Controls the underline buffer of an array.</p>
  *
  */
 public interface Resizer {

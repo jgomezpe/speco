@@ -39,9 +39,7 @@
 package speco.integer;
 
 /**
- * <p>Title: IntegerUtil</p>
- *
- * <p>Description: Set of constants and methods operating on the primitive <i>int</i> data type,
+ * <p>Set of constants and methods operating on the primitive <i>int</i> data type,
  * for example, for accessing the bit representation of an int.</p>
  *
  */

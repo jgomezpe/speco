@@ -41,9 +41,7 @@ package speco.object;
 import java.util.Iterator;
 
 /**
- * <p>Title: CastIterable</p>
- *
- * <p>Description: A collection that contains casted version (to type &lt;T&gt;) of objects (from type &lt;S&gt;) in another collection.</p>
+ * <p>A collection that contains casted version (to type &lt;T&gt;) of objects (from type &lt;S&gt;) in another collection.</p>
  * @param <S> Source type
  * @param <T> Target type
  *

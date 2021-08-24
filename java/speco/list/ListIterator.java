@@ -41,9 +41,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * <p>Title: ListIterator</p>
- *
- * <p>Description: A List Iterator</p>
+ * <p>A List Iterator</p>
  * @param <T> Type of elements stored by the List
  */
 class ListIterator<T> implements Iterator<T>{

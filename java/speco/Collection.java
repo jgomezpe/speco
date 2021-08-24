@@ -39,9 +39,7 @@
 package speco;
 
 /**
- * <p>Title: Collection</p>
- *
- * <p>Description: A collection of elements.</p>
+ * <p>A collection of elements.</p>
  * @param <T> Type of elements stored by the Collection
  *
  */

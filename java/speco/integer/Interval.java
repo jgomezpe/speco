@@ -43,9 +43,7 @@ import java.util.Iterator;
 import speco.set.Set;
 
 /**
- * <p>Title: Interval</p>
- *
- * <p>Description: An [start,end) close-open interval of integer numbers.</p>
+ * <p>An [start,end) close-open interval of integer numbers.</p>
  *
  */
 public class Interval implements Set<Integer,Integer>{

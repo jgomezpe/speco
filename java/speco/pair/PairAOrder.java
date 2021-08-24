@@ -41,9 +41,7 @@ package speco.pair;
 import kompari.Order;
 
 /**
- * <p>Title: PairAOrder</p>
- *
- * <p>Description: An order for Pair objects that considers the key ('a': the first element in the pair) as sorting element</p>
+ * <p>An order for Pair objects that considers the key ('a': the first element in the pair) as sorting element</p>
  * @param <A> First component type
  * @param <B> Second component type
  *

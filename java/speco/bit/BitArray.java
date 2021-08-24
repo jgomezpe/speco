@@ -42,9 +42,7 @@ import java.util.Iterator;
 import kopii.Copyable;
 
 /**
- * <p>Title: BitArray</p>
- * 
- * <p>Description: An array of bits</p>
+ * <p>An array of bits</p>
  */
 public class BitArray implements Iterable<Boolean>, Copyable{
 	/**

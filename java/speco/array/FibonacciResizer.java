@@ -39,9 +39,7 @@
 package speco.array;
 
 /**
- * <p>Title: FibonacciResizer</p>
- *
- * <p>Description: An array resizer following Fibonacci numbers. Controls the underline buffer of an array.</p>
+ * <p>An array resizer following Fibonacci numbers. Controls the underline buffer of an array.</p>
  *
  */
 public class FibonacciResizer implements Resizer{

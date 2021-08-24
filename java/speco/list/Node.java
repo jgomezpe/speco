@@ -39,8 +39,7 @@
 package speco.list;
 
 /**
- * Title: Node
- * Description: A list node. The list is double linked
+ * <p>A list node. The list is double linked</p>
  * @param <T> Type of elements stored by the Node
  */
 public class Node<T> {

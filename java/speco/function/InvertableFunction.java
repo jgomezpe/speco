@@ -40,9 +40,7 @@ package speco.function;
 
 
 /**
- * <p>Title: InvertableFunction</p>
- * 
- * <p>Description: Abstract definition of a function that is invertible</p>
+ * <p>Abstract definition of a function that is invertible</p>
  * @param <S> Domain of the function
  * @param <T> Range of the function
  */

@@ -1,13 +1,7 @@
 package speco.bit;
 
 /**
- * <p>Title: BitUtil</p>
- * <p>Description: Utility class for converting Arrays to/from IntArrays.</p>
- * <p>Copyright: Copyright (c) 2006</p>
- * <p>Company: Kunsamu</p>
- * @author Jonatan Gomez
- * @version 1.0
- *
+ * <p>Utility class for converting Arrays to/from IntArrays.</p>
  */
 public class BitUtil {
 	public static boolean useGrayCode = false;

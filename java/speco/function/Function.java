@@ -41,9 +41,7 @@ package speco.function;
 import speco.object.Cast;
 
 /**
- * <p>Title: Function</p>
- * 
- * <p>Description: Abstract definition of a function.</p>
+ * <p>Abstract definition of a function.</p>
  * @param <S> Domain of the function
  * @param <T> Range of the function
  */

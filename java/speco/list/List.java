@@ -41,9 +41,7 @@ package speco.list;
 import java.util.Iterator;
 
 /**
- * <p>Title: List</p>
- *
- * <p>Description: A list of objects</p>
+ * <p>A list of objects</p>
  * @param <T> Type of elements stored by the List
  *
  */

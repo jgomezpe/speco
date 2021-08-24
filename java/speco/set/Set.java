@@ -41,9 +41,7 @@ package speco.set;
 import speco.Collection;
 
 /**
- * <p>Title: Set</p>
- *
- * <p>Description: A set allowing a single copy of an element. Provide access to elements using an index/key.</p>
+ * <p>A set allowing a single copy of an element. Provide access to elements using an index/key.</p>
  * @param <V> Type of elements stored by the Set
  * @param <K> Type of indices for accessing elements in the Set
  *

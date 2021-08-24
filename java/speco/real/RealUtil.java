@@ -39,9 +39,7 @@
 package speco.real;
 
 /**
- * <p>Title: RealUtil</p>
- *
- * <p>Description: Set of constants and methods operating on the primitive <i>double</i> data type,
+ * <p>Set of constants and methods operating on the primitive <i>double</i> data type,
  * for example, for defining the precision in math operations.</p>
  *
  */

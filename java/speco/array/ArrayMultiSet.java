@@ -44,9 +44,7 @@ import kompari.Comparator;
 import speco.set.MultiSet;
 
 /**
- * <p>Title: ArrayMultiSet</p>
- *
- * <p>Description: A multi-set implementation using arrays.</p>
+ * <p>A multi-set implementation using arrays.</p>
  * @param <T> Type of elements stored by the ArrayMultiSet
  *
  */

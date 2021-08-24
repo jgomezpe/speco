@@ -39,9 +39,7 @@
 package speco.list;
 
 /**
- * <p>Title: Stack</p>
- *
- * <p>Description: An stack </p>
+ * <p>An stack </p>
  * @param <T> Type of elements stored by the Stack
  *
  */
