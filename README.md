@@ -3,19 +3,18 @@ Java data structure collection for the numtseng infrastructure.
 <h3>Version 1.0</h3>
 <h3>Copyright (c)</h3>
 &nbsp;Author: <A HREF="https://disi.unal.edu.co/~jgomezpe/"> Jonatan Gomez-Perdomo </A>
+
 &nbsp;E-mail: <A HREF="mailto:jgomezpe@unal.edu.co">jgomezpe@unal.edu.co</A>
+
+&nbsp;All rights reserved.
 
 &nbsp;Ready to use: <A HREF="https://github.com/jgomezpe/libs/speco.jar">https://github.com/jgomezpe/libs/speco.jar</A>
 
-&nbsp;Java compilation requires: kerno.jar
-
-&nbsp;Available at <A HREF="https://github.com/jgomezpe/libs/">https://github.com/jgomezpe/libs/</A>
+&nbsp;API documentation: <A HREF="https://numtseng.com/api/speco/java/">https://numtseng.com/api/speco/java/</A>
 
 &nbsp;Source code: <A HREF="https://github.com/jgomezpe/speco/">https://github.com/jgomezpe/speco/</A>
 
-&nbsp;API documentation: <A HREF="https://numtseng.com/api/speco/java/">https://numtseng.com/api/speco/java/</A>
-
-&nbsp;All rights reserved.
+&nbsp;Compilation requires: kerno.jar available at <A HREF="https://github.com/jgomezpe/libs/">https://github.com/jgomezpe/libs/</A>
 
 <h3>Licence</h3>
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
